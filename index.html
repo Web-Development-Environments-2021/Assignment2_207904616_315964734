@@ -2,23 +2,58 @@
 <html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="style.css" />
+		<link rel="shortcut icon" type="image/x-icon" href="images/pacManIcon.png">		
 		<script src="./jquery-3.4.1.slim.min.js"></script>
 		<script type="text/javascript" src="./app.js"></script>
+
 	</head>
+	<title>O&O Pac-Man</title>
+	
 
-	<div id="menu">
-		<ul><b>
-		  <li><a href="#Welcome"><i class="fa fa-home" aria-hidden="true"></i> Welcome</a></li>
-		  <li><a href="#about"><i class="fa fa-address-card-o" aria-hidden="true"></i> Login</i></a></li>
-		  <li><a href="#photos"><i class="fa fa-camera-retro" aria-hidden="true"></i> Register</a></li>
-		  <li><a href="#playlist"><i class="fa fa-youtube-play" aria-hidden="true"></i> Settings</a></li>
-		  <li><a href="#like"><i class="fa fa-facebook-square" aria-hidden="true"></i> About</a></li>
-		</b></ul>
-	</div>
-
-
+<!-- </br></br></br></br></br></br> -->
 	<body style="background-color: #cfe0e8;">
-		<div id="gamePage">
+		
+		<div id="menu">
+			<ul><b>
+			<li><img src="images/pacManIcon.png" alt="pacManLogo" height="40px" width="40px" style="vertical-align: middle;"></li>					
+			<li><a onclick= Welcome()>Welcome</a></li>
+			<li><a onclick= "divVisibility('gamePage');"> Show Game</a></li>
+
+			<li><a onclick= "divVisibility('Login');">Login</a></li>
+			<li><a onclick= "divVisibility('Register');"> Register</a></li>
+			<li><a onclick= Settings()> Settings</a></li>
+			<li><a onclick= About()>About</a></li>
+			</b></ul>
+		</div>	
+				
+		
+		<div id = "Welcome">
+			<img src="images/pac-man-logo.png" height="575px" class = "center">
+			<button id="goToLogin" onclick= "divVisibility('Login');" type="button">Sign in</button>
+			<button id="goToLogin" onclick=ShowRegisterPage() type="button">Sign Up</button>			
+		</div>
+		
+		
+		<div id = "Login" style="display: none;">
+			<form id = "LoginForm">
+				<input id="userName" placeholder="User Name"></br>
+				<input id="password" placeholder="Password"></br>
+				<button type = "submit">Login</button>
+			</form>
+		</div>
+
+		<div id = "Register" style="display: none;">
+			<form id = "RegisterForm">
+				<input id="userName" placeholder="User Name"></br>
+				<input id="password" placeholder="Password"></br>
+				<input id="fullName" placeholder="Full Name"></br>
+				<input id="email" placeholder="Email"></br>
+				<button type = "submit">Register</button>
+			</form>
+		</div>
+		
+		
+		<div id="gamePage" style="display: none;">
 		</br></br></br></br>		
 			<div id="score">
 				<label for="lblScore">SCORE:</label>
@@ -33,6 +68,7 @@
 			</div>
 		</div>
 	</body>
+
 	<footer id="infoOfUs" style="background-color:#87bdd8">
 		<p><h4>Authors: Omer Niv & Omer Tagger</h4></p>
  		<p><h4>Contact Us:

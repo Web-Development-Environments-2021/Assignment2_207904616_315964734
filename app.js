@@ -8,8 +8,8 @@ var time_elapsed;
 var interval;
 
 $(document).ready(function() {
-	context = canvas.getContext("2d");
-	Start();
+	// context = canvas.getContext("2d");
+	// Start();
 });
 
 function Start() {
@@ -170,3 +170,45 @@ function UpdatePosition() {
 		Draw();
 	}
 }
+
+
+// #######################################################
+var divs = ["gamePage", "Register", "Login", "Welcome"];
+
+
+function showGameBorad() {
+	var x = document.getElementById("gamePage");
+	if (x.style.display === "none") {
+		context = canvas.getContext("2d");
+		Start();
+	  	x.style.display = "block";
+	} else {
+	  x.style.display = "none";
+	}
+  }
+
+    var visibleDivId = null;
+    function divVisibility(divId) {
+      if(visibleDivId === divId) {
+        visibleDivId = null;
+      } else {
+        visibleDivId = divId;
+      }
+	  if (divId === "gamePage"){
+		context = canvas.getContext("2d");
+		Start();
+	  }
+      hideNonVisibleDivs();
+    }
+    function hideNonVisibleDivs() {
+      var i, divId, div;
+      for(i = 0; i < divs.length; i++) {
+        divId = divs[i];
+        div = document.getElementById(divId);
+        if(visibleDivId === divId) {
+          div.style.display = "block";
+        } else {
+          div.style.display = "none";
+        }
+      }
+    }
