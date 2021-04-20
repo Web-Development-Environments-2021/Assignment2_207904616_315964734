@@ -1,21 +1,41 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<link rel="stylesheet" type="text/css" href="style.css" />
 		<script src="./jquery-3.4.1.slim.min.js"></script>
 		<script type="text/javascript" src="./app.js"></script>
 	</head>
 
-	<body>
-		<div id="score">
-			<label for="lblScore">SCORE:</label>
-			<input id="lblScore" type="text" />
-		</div>
-		<div id="time">
-			<label for="lblTime">TIME:</label>
-			<input id="lblTime" type="text" />
-		</div>
-		<div id="game">
-			<canvas id="canvas" height="600" width="600"></canvas>
+	<div id="menu">
+		<ul><b>
+		  <li><a href="#Welcome"><i class="fa fa-home" aria-hidden="true"></i> Welcome</a></li>
+		  <li><a href="#about"><i class="fa fa-address-card-o" aria-hidden="true"></i> Login</i></a></li>
+		  <li><a href="#photos"><i class="fa fa-camera-retro" aria-hidden="true"></i> Register</a></li>
+		  <li><a href="#playlist"><i class="fa fa-youtube-play" aria-hidden="true"></i> Settings</a></li>
+		  <li><a href="#like"><i class="fa fa-facebook-square" aria-hidden="true"></i> About</a></li>
+		</b></ul>
+	</div>
+
+
+	<body style="background-color: #cfe0e8;">
+		<div id="gamePage">
+		</br></br></br></br>		
+			<div id="score">
+				<label for="lblScore">SCORE:</label>
+				<input id="lblScore" type="text" />
+			</div>
+			<div id="time">
+				<label for="lblTime">TIME:</label>
+				<input id="lblTime" type="text" />
+			</div>
+			<div id="game "  style="background-color: #b7d7e8;">
+				<canvas id="canvas" height="600" width="600"></canvas>
+			</div>
 		</div>
 	</body>
+	<footer id="infoOfUs" style="background-color:#87bdd8">
+		<p><h4>Authors: Omer Niv & Omer Tagger</h4></p>
+ 		<p><h4>Contact Us:
+		<a href="mailto:nivom@post.bgu.ac.il">nivom@post.bgu.ac.il</a></h4></p>
+	</footer>
 </html>

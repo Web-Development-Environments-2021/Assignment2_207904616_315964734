@@ -1,0 +1,39 @@
+#menu
+{
+	position: fixed;
+	width: 100%;
+	height: 65px;
+	background-color: #667292
+	/* opacity: 0.4 */
+	/* background-color: #b9936c */
+			
+}
+
+li a
+
+{
+display: block;
+color: white;
+text-align: center;
+padding: 18px;
+text-decoration: none;
+align-self: center;
+}
+li a:hover
+{
+	background-color: #87bdd8;
+	border-radius: 5%;
+}
+li
+{
+	display: inline-block;
+}
+
+ul {
+	text-align: center;
+	list-style: inside;
+	list-style-type: none;
+	margin: 3px;
+	padding: 0;
+	overflow: hidden;
+}
