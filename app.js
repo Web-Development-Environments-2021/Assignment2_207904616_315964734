@@ -236,6 +236,3 @@ function playSong(){
 function pauseSong(){
 	song.pause();
 }
-
-
-

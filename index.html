@@ -18,11 +18,11 @@
 			<ul><b>
 			<li><img src="images/pacManIcon.png" alt="pacManLogo" height="40px" style="vertical-align: middle; cursor: pointer;" onclick= "showPage('Welcome');"></li>					
 			<li><a onclick= "showPage('Welcome');">Welcome</a></li>
-			<li><a onclick= "showPage('gamePage');"> Show Game</a></li>
-
+			<!-- <li><a onclick= "showPage('gamePage');"> Show Game</a></li> -->
+			
 			<li><a onclick= "showPage('Login');">Login</a></li>
 			<li><a onclick= "showPage('Register');"> Register</a></li>
-			<li><a onclick= "showPage('Settings');"> Settings</a></li>
+			<!-- <li><a onclick= "showPage('Settings');"> Settings</a></li> -->
 			<li><a id="buttomAbout" >About</a></li>
 			<li><img src="images/ghost.png" alt="pacManLogo" height="40px"  style="vertical-align: middle; cursor: pointer;" onclick= "showPage('Welcome');" ></li>					
 
@@ -33,9 +33,41 @@
 		<div id = "Welcome" class="content">
 			<img src="images/pac-man-logo-crop.png" class = "center">
 			<center>
-			<button id="goToLogin" onclick= "showPage('Login');" type="button">Sign In</button>
+			<div class="login-box" >
+				<form>
+					<a href="#" onclick="showPage('Login');">
+						<span></span>
+						<span></span>
+						<span></span>
+						<span></span>
+						Sing in
+					</a>
+					<a href="#" onclick="showPage('Register');">
+						<span></span>
+						<span></span>
+						<span></span>
+						<span></span>
+						Sign Up
+					</a>
+				</form>
+			</div>
+		</br></br>
+			<div class="login-box" >
+				<form>
+					<a href="#" onclick="showPage('Settings');">
+						<span></span>
+						<span></span>
+						<span></span>
+						<span></span>
+						Settings
+					</a>
+					</form>
+				</div>
+			<!-- <button id="goToLogin" onclick= "showPage('Login');" type="button">Sign In</button>
 			<button id="goToLogin" onclick="showPage('Register');" type="button">Sign Up</button>
-			</br>
+			</br></br></br>
+			<button id="goToLogin" onclick="showPage('Settings');" type="button">Settings</button> -->
+
 			</center>		
 		</div>
 		
@@ -145,6 +177,8 @@
 				</div>
 				<button id="play" onclick="playSong();" > &#9658  Play Music</button>
 				<button id="puase" onclick="pauseSong();" type="button"> &#10074&#10074  Pause Music</button>
+				<button id="goToLogin" onclick="showPage('Settings');" type="button">New Game</button>
+
 
 			</center>
 		</div>
@@ -157,7 +191,32 @@
 		</div>
 
 		<div id="Settings" style="display: none;" class="content">
-			<h1>Settings</h1>
+			<center>
+			<div class="login-box" >
+			<h2>Settings</h2>
+			<form>
+				<div class="user-box">
+					<input id="timerVal" type="number" value = "60" min="60" name="" required="">
+					<label>Time (Min 60 Seconds)</label>
+				</div>
+				<div class="user-box">
+					<input id="numOfGhosts" type="range" name="" required="" min="1" max="4" value="1" oninput="this.nextElementSibling.value = this.value">
+					<!-- <output>1</output> -->
+					<label>Number Of Ghosts</label>
+				</div>
+
+				<a href="#" onclick="showPage('gamePage');">
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					New Game
+				</a>
+				</form>
+			</div>
+			<!-- <input id="userInput" type="number" value = "60" min="60"/></br> -->
+			<!-- <button id="goToLogin" onclick="showPage('gamePage');" type="button">New Game</button> -->
+		</center>
 		</div>
 
 
