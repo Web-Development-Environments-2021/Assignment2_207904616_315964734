@@ -5,6 +5,7 @@
 		<link rel="shortcut icon" type="image/x-icon" href="images/pacManIcon.png">		
 		<script src="./jquery-3.4.1.slim.min.js"></script>
 		<script type="text/javascript" src="./app.js"></script>
+		<script src="./pacman.js"></script>
 
 	</head>
 	<title>O&O Pac-Man</title>
@@ -15,46 +16,108 @@
 		
 		<div id="menu">
 			<ul><b>
-			<li><img src="images/pacManIcon.png" alt="pacManLogo" height="40px" width="40px" style="vertical-align: middle;"></li>					
-			<li><a onclick= Welcome()>Welcome</a></li>
-			<li><a onclick= "divVisibility('gamePage');"> Show Game</a></li>
+			<li><img src="images/pacManIcon.png" alt="pacManLogo" height="40px" width="40px" style="vertical-align: middle; cursor: pointer;" onclick= "showPage('Welcome');"></li>					
+			<li><a onclick= "showPage('Welcome');">Welcome</a></li>
+			<li><a onclick= "showPage('gamePage');"> Show Game</a></li>
 
-			<li><a onclick= "divVisibility('Login');">Login</a></li>
-			<li><a onclick= "divVisibility('Register');"> Register</a></li>
-			<li><a onclick= Settings()> Settings</a></li>
-			<li><a onclick= About()>About</a></li>
+			<li><a onclick= "showPage('Login');">Login</a></li>
+			<li><a onclick= "showPage('Register');"> Register</a></li>
+			<li><a onclick= "showPage('Settings');"> Settings</a></li>
+			<li><a id="buttomAbout" >About</a></li>
+			<li><img src="images/ghost.png" alt="pacManLogo" height="40px"  style="vertical-align: middle;" ></li>					
+
 			</b></ul>
 		</div>	
 				
 		
-		<div id = "Welcome">
-			<img src="images/pac-man-logo.png" height="575px" class = "center">
-			<button id="goToLogin" onclick= "divVisibility('Login');" type="button">Sign in</button>
-			<button id="goToLogin" onclick=ShowRegisterPage() type="button">Sign Up</button>			
+		<div id = "Welcome" class="content">
+			<img src="images/pac-man-logo-crop.png" class = "center">
+			<center>
+			<button id="goToLogin" onclick= "showPage('Login');" type="button">Sign in</button>
+			<button id="goToLogin" onclick="showPage('Register');" type="button">Sign Up</button>
+			</br>
+			</center>		
 		</div>
 		
 		
-		<div id = "Login" style="display: none;">
+		<!-- <div id = "Login" style="display: none;" class="content">
 			<form id = "LoginForm">
+				<center>
 				<input id="userName" placeholder="User Name"></br>
 				<input id="password" placeholder="Password"></br>
 				<button type = "submit">Login</button>
+				</center>		
 			</form>
+		</div> -->
+		<div id = "Login" style="display: none;" class="content">
+			<div class="login-box" >
+				<h2>Login</h2>
+				<form>
+				<div class="user-box">
+					<input type="text" name="" required="">
+					<label>Username</label>
+				</div>
+				<div class="user-box">
+					<input type="password" name="" required="">
+					<label>Password</label>
+				</div>
+				<a href="#">
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					Sing In
+				</a>
+				</form>
+		  </div>
 		</div>
 
-		<div id = "Register" style="display: none;">
-			<form id = "RegisterForm">
+		<!-- <div id = "Register" style="display: none;" class="content">
+			<form id = "RegisterForm" style="vertical-align: middle;">
+				<center>
 				<input id="userName" placeholder="User Name"></br>
 				<input id="password" placeholder="Password"></br>
 				<input id="fullName" placeholder="Full Name"></br>
 				<input id="email" placeholder="Email"></br>
 				<button type = "submit">Register</button>
+				</center>		
 			</form>
+		</div> -->
+		<div id = "Register" style="display: none;" class="content">
+			<div class="login-box" >
+				<h2>Register</h2>
+				<form>
+				<div class="user-box">
+					<input type="text" name="" required="">
+					<label>Username</label>
+				</div>
+				<div class="user-box">
+					<input type="password" name="" required="">
+					<label>Password</label>
+				</div>
+				<div class="user-box">
+					<input id="fullName" type="text" name="" required="">
+					<label>Full Name</label>
+				</div>
+				<div class="user-box">
+					<input id="email" type="text" name="" required="">
+					<label>Email</label>
+				</div>
+				<a href="#">
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					Sing Up
+				</a>
+				</form>
+			</div>
 		</div>
 		
 		
-		<div id="gamePage" style="display: none;">
-		</br></br></br></br>		
+		<div id="gamePage" style="display: none;" class="content">
+		<!-- </br></br></br></br>		 -->
+			<center>
 			<div id="score">
 				<label for="lblScore">SCORE:</label>
 				<input id="lblScore" type="text" />
@@ -63,13 +126,55 @@
 				<label for="lblTime">TIME:</label>
 				<input id="lblTime" type="text" />
 			</div>
-			<div id="game "  style="background-color: #b7d7e8;">
+			<div id="game"  >
+				<!-- <canvas id="canvas" height="600" width="600"></canvas> -->
 				<canvas id="canvas" height="600" width="600"></canvas>
 			</div>
+		</center>
 		</div>
-	</body>
 
-	<footer id="infoOfUs" style="background-color:#87bdd8">
+		<div id="About" class="modal" >
+			<div class="modal-content">
+				<span class="close">&times;</span>
+				<p>Some text in the Modal..</p>
+			</div>
+		</div>
+
+		<div id="Settings" style="display: none;" class="content">
+			<h1>Settings</h1>
+		</div>
+
+
+		<script>
+		// Get the modal
+		var modal = document.getElementById("About");
+
+		// Get the button that opens the modal
+		var btn = document.getElementById("buttomAbout");
+
+		// Get the <span> element that closes the modal
+		var span = document.getElementsByClassName("close")[0];
+
+		// When the user clicks the button, open the modal 
+		btn.onclick = function() {
+		modal.style.display = "block";
+		}
+
+		// When the user clicks on <span> (x), close the modal
+		span.onclick = function() {
+		modal.style.display = "none";
+		}
+
+		// When the user clicks anywhere outside of the modal, close it
+		window.onclick = function(event) {
+		if (event.target == modal) {
+			modal.style.display = "none";
+		}
+		}
+		</script>
+
+	</body>
+	<footer id="infoOfUs" class="footer">
 		<p><h4>Authors: Omer Niv & Omer Tagger</h4></p>
  		<p><h4>Contact Us:
 		<a href="mailto:nivom@post.bgu.ac.il">nivom@post.bgu.ac.il</a></h4></p>

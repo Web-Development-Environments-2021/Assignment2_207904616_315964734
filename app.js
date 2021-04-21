@@ -173,42 +173,46 @@ function UpdatePosition() {
 
 
 // #######################################################
-var divs = ["gamePage", "Register", "Login", "Welcome"];
+var divs = ["gamePage", "Register", "Login", "Welcome", "Settings"];
 
 
-function showGameBorad() {
-	var x = document.getElementById("gamePage");
-	if (x.style.display === "none") {
-		context = canvas.getContext("2d");
-		Start();
-	  	x.style.display = "block";
+// function showGameBorad() {
+// 	var x = document.getElementById("gamePage");
+// 	if (x.style.display === "none") {
+// 		context = canvas.getContext("2d");
+// 		Start();
+// 	  	x.style.display = "block";
+// 	} else {
+// 	  x.style.display = "none";
+// 	}
+//   }
+
+var visibleDivId = null;
+function showPage(divId) {
+	if(!visibleDivId === divId) {
+	visibleDivId = null;
 	} else {
-	  x.style.display = "none";
+	visibleDivId = divId;
 	}
-  }
+	if (divId === "gamePage"){
+	context = canvas.getContext("2d");
+	Start();
+	}	
+	hideNonVisibleDivs();
+}
+function hideNonVisibleDivs() {
+	var i, divId, div;
+	for(i = 0; i < divs.length; i++) {
+	divId = divs[i];
+	div = document.getElementById(divId);
+	if(visibleDivId === divId) {
+		div.style.display = "block";
+	} else {
+		div.style.display = "none";
+	}
+	}
+}
 
-    var visibleDivId = null;
-    function divVisibility(divId) {
-      if(visibleDivId === divId) {
-        visibleDivId = null;
-      } else {
-        visibleDivId = divId;
-      }
-	  if (divId === "gamePage"){
-		context = canvas.getContext("2d");
-		Start();
-	  }
-      hideNonVisibleDivs();
-    }
-    function hideNonVisibleDivs() {
-      var i, divId, div;
-      for(i = 0; i < divs.length; i++) {
-        divId = divs[i];
-        div = document.getElementById(divId);
-        if(visibleDivId === divId) {
-          div.style.display = "block";
-        } else {
-          div.style.display = "none";
-        }
-      }
-    }
+
+
+
