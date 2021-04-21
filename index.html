@@ -16,7 +16,7 @@
 		
 		<div id="menu">
 			<ul><b>
-			<li><img src="images/pacManIcon.png" alt="pacManLogo" height="40px" width="40px" style="vertical-align: middle; cursor: pointer;" onclick= "showPage('Welcome');"></li>					
+			<li><img src="images/pacManIcon.png" alt="pacManLogo" height="40px" style="vertical-align: middle; cursor: pointer;" onclick= "showPage('Welcome');"></li>					
 			<li><a onclick= "showPage('Welcome');">Welcome</a></li>
 			<li><a onclick= "showPage('gamePage');"> Show Game</a></li>
 
@@ -33,7 +33,7 @@
 		<div id = "Welcome" class="content">
 			<img src="images/pac-man-logo-crop.png" class = "center">
 			<center>
-			<button id="goToLogin" onclick= "showPage('Login');" type="button">Sign in</button>
+			<button id="goToLogin" onclick= "showPage('Login');" type="button">Sign In</button>
 			<button id="goToLogin" onclick="showPage('Register');" type="button">Sign Up</button>
 			</br>
 			</center>		
@@ -50,6 +50,8 @@
 			</form>
 		</div> -->
 		<div id = "Login" style="display: none;" class="content">
+			<center><img src="images/pac-man-logo-tight.png" height="120px" ></center>
+
 			<div class="login-box" >
 				<h2>Login</h2>
 				<form>
@@ -84,6 +86,8 @@
 			</form>
 		</div> -->
 		<div id = "Register" style="display: none;" class="content">
+			<center><img src="images/pac-man-logo-tight.png" height="120px" ></center>
+
 			<div class="login-box" >
 				<h2>Register</h2>
 				<form>
@@ -116,8 +120,9 @@
 		
 		
 		<div id="gamePage" style="display: none;" class="content">
-		<!-- </br></br></br></br>		 -->
+		
 			<center>
+			<img src="images/pac-man-logo-tight.png" height="120px" >
 			<div id="score">
 				<label for="lblScore">SCORE:</label>
 				<input id="lblScore" type="text" />
@@ -126,6 +131,7 @@
 				<label for="lblTime">TIME:</label>
 				<input id="lblTime" type="text" />
 			</div>
+		</br>
 			<div id="game"  >
 				<!-- <canvas id="canvas" height="600" width="600"></canvas> -->
 				<canvas id="canvas" height="600" width="600"></canvas>
@@ -177,6 +183,8 @@
 	<footer id="infoOfUs" class="footer">
 		<p><h4>Authors: Omer Niv & Omer Tagger</h4></p>
  		<p><h4>Contact Us:
-		<a href="mailto:nivom@post.bgu.ac.il">nivom@post.bgu.ac.il</a></h4></p>
+		<a href="mailto:nivom@post.bgu.ac.il">nivom@post.bgu.ac.il</a>
+		<a href="mailto:omertag@post.bgu.ac.il">omertag@post.bgu.ac.il</a></h4></p>
+
 	</footer>
 </html>
