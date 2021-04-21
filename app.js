@@ -6,6 +6,7 @@ var pac_color;
 var start_time;
 var time_elapsed;
 var interval;
+let song =new Audio("./music/Pac-man-theme-remix.mp3");
 
 $(document).ready(function() {
 	// context = canvas.getContext("2d");
@@ -13,6 +14,9 @@ $(document).ready(function() {
 });
 
 function Start() {
+
+	startMusic();
+
 	board = new Array();
 	score = 0;
 	pac_color = "yellow";
@@ -191,12 +195,17 @@ var visibleDivId = null;
 function showPage(divId) {
 	if(!visibleDivId === divId) {
 	visibleDivId = null;
-	} else {
+	}
+	else
+	{
 	visibleDivId = divId;
 	}
 	if (divId === "gamePage"){
 	context = canvas.getContext("2d");
 	Start();
+	}
+	else{
+	pauseSong();
 	}	
 	hideNonVisibleDivs();
 }
@@ -213,6 +222,20 @@ function hideNonVisibleDivs() {
 	}
 }
 
+function startMusic() {
+	song.currentTime=0
+	song.volume = 0.1;
+	song.loop = true;
+	playSong();
+}
+
+function playSong(){
+	song.play();
+}
+
+function pauseSong(){
+	song.pause();
+}
 
 
 

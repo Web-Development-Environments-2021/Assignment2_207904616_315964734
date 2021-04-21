@@ -24,7 +24,7 @@
 			<li><a onclick= "showPage('Register');"> Register</a></li>
 			<li><a onclick= "showPage('Settings');"> Settings</a></li>
 			<li><a id="buttomAbout" >About</a></li>
-			<li><img src="images/ghost.png" alt="pacManLogo" height="40px"  style="vertical-align: middle;" ></li>					
+			<li><img src="images/ghost.png" alt="pacManLogo" height="40px"  style="vertical-align: middle; cursor: pointer;" onclick= "showPage('Welcome');" ></li>					
 
 			</b></ul>
 		</div>	
@@ -127,23 +127,26 @@
 		
 		
 		<div id="gamePage" style="display: none;" class="content">
-		
+			<!-- <embed loop="true" src="/music/Pac-man-theme-remix.wav" hidden="true" type="video/quicktime"></embed> -->
 			<center>
-			<img src="images/pac-man-logo-tight.png" height="120px" >
-			<div id="score">
-				<label for="lblScore">SCORE:</label>
-				<input id="lblScore" type="text" />
-			</div>
-			<div id="time">
-				<label for="lblTime">TIME:</label>
-				<input id="lblTime" type="text" />
-			</div>
-		</br>
-			<div id="game"  >
-				<!-- <canvas id="canvas" height="600" width="600"></canvas> -->
-				<canvas id="canvas" height="600" width="600"></canvas>
-			</div>
-		</center>
+				<img src="images/pac-man-logo-tight.png" height="120px" >
+				<div id="score">
+					<label for="lblScore">SCORE:</label>
+					<input id="lblScore" type="text" />
+				</div>
+				<div id="time">
+					<label for="lblTime">TIME:</label>
+					<input id="lblTime" type="text" />
+				</div>
+				</br>
+				<div id="game"  >
+					<!-- <canvas id="canvas" height="600" width="600"></canvas> -->
+					<canvas id="canvas" height="600" width="600"></canvas>
+				</div>
+				<button id="play" onclick="playSong();" > &#9658  Play Music</button>
+				<button id="puase" onclick="pauseSong();" type="button"> &#10074&#10074  Pause Music</button>
+
+			</center>
 		</div>
 
 		<div id="About" class="modal" >
