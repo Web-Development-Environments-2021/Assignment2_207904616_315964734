@@ -154,12 +154,13 @@ button:hover{
 
 
 .login-box {
-position: absolute;
+/* position: absolute; */
+/* align-self: center; */
 top: 50%;
 left: 50%;
 width: 400px;
 padding: 40px;
-transform: translate(-50%, -50%);
+/* transform: translate(-50%, -50%); */
 /* background: rgba(0,0,0,.5); */
 background: #667292;
 box-sizing: border-box;
