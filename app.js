@@ -73,7 +73,7 @@ function Start() {
 		},
 		false
 	);
-	interval = setInterval(UpdatePosition, 250);
+	interval = setInterval(UpdatePosition, 50);
 }
 
 function findRandomEmptyCell(board) {
@@ -128,7 +128,7 @@ function Draw() {
 			} else if (board[i][j] == 4) {
 				context.beginPath();
 				context.rect(center.x - 30, center.y - 30, 60, 60);
-				context.fillStyle = "grey"; //color
+				context.fillStyle = "#8d9db6"; //color
 				context.fill();
 			}
 		}
