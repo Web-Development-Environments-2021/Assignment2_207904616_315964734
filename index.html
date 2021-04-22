@@ -2,10 +2,12 @@
 <html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="style.css" />
+		<link rel="stylesheet" type="text/css" href="footer.css" />
+
 		<link rel="shortcut icon" type="image/x-icon" href="images/pacManIcon.png">		
 		<script src="./jquery-3.4.1.slim.min.js"></script>
 		<script type="text/javascript" src="./app.js"></script>
-		<script src="./pacman.js"></script>
+		<script src="./validation.js"></script>
 		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 		<link rel="stylesheet" href="/resources/demos/style.css">
 
@@ -15,7 +17,10 @@
 
 <!-- </br></br></br></br></br></br> -->
 	<body style="background-color: #cfe0e8;">
-		
+		<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.3.min.js"></script>
+  		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
+  		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/additional-methods.min.js"></script>
+
 		<div id="menu">
 			<ul><b>
 			<li><img src="images/pacManIcon.png" alt="pacManLogo" height="40px" style="vertical-align: middle; cursor: pointer;" onclick= "showPage('Welcome');"></li>					
@@ -23,7 +28,7 @@
 			<!-- <li><a onclick= "showPage('gamePage');"> Show Game</a></li> -->
 			
 			<li><a onclick= "showPage('Login');">Login</a></li>
-			<li><a onclick= "showPage('Register');"> Register</a></li>
+			<li><a onclick= "resetRegisterForm()"> Register</a></li>
 			<!-- <li><a onclick= "showPage('Settings');"> Settings</a></li> -->
 			<li><a id="buttomAbout" >About</a></li>
 			<li><img src="images/ghost.png" alt="pacManLogo" height="40px"  style="vertical-align: middle; cursor: pointer;" onclick= "showPage('Welcome');" ></li>					
@@ -35,54 +40,16 @@
 		<div id = "Welcome" class="content">
 			<img src="images/pac-man-logo-crop.png" class = "center">
 			<center>
-			<!-- <div class="login-box" >
-				<form>
-					<a href="#" onclick="showPage('Login');">
-						<span></span>
-						<span></span>
-						<span></span>
-						<span></span>
-						Sing in
-					</a>
-					<a href="#" onclick="showPage('Register');">
-						<span></span>
-						<span></span>
-						<span></span>
-						<span></span>
-						Sign Up
-					</a>
-				</form>
-			</div>
-		</br></br>
-			<div class="login-box" >
-				<form>
-					<a href="#" onclick="showPage('Settings');">
-						<span></span>
-						<span></span>
-						<span></span>
-						<span></span>
-						Settings
-					</a>
-					</form>
-				</div> -->
+
 			<button id="goToLogin" class="homeButtom" onclick= "showPage('Login');" type="button">Sign In</button>
-			<button id="goToLogin" class="homeButtom" onclick="showPage('Register');" type="button">Sign Up</button>
+			<button id="goToLogin" class="homeButtom" onclick="resetRegisterForm()" type="button">Sign Up</button>
 			</br></br></br>
 			<button id="goToLogin" class="homeButtom" onclick="showPage('Settings');" type="button">Settings</button>
 
 			</center>		
 		</div>
 		
-		
-		<!-- <div id = "Login" style="display: none;" class="content">
-			<form id = "LoginForm">
-				<center>
-				<input id="userName" placeholder="User Name"></br>
-				<input id="password" placeholder="Password"></br>
-				<button type = "submit">Login</button>
-				</center>		
-			</form>
-		</div> -->
+
 		<div id = "Login" style="display: none;" class="content">
 			<center>
 			<img src="images/pac-man-logo-tight.png" height="120px" >
@@ -110,44 +77,45 @@
 		</center>
 		</div>
 
-		<!-- <div id = "Register" style="display: none;" class="content">
-			<form id = "RegisterForm" style="vertical-align: middle;">
-				<center>
-				<input id="userName" placeholder="User Name"></br>
-				<input id="password" placeholder="Password"></br>
-				<input id="fullName" placeholder="Full Name"></br>
-				<input id="email" placeholder="Email"></br>
-				<button type = "submit">Register</button>
-				</center>		
-			</form>
-		</div> -->
+
 		<div id = "Register" style="display: none;" class="content">
 			<center><img src="images/pac-man-logo-tight.png" height="120px" >
 
 			<div class="login-box" >
 				<h2>Register</h2>
-				<form>
+				<form id="RegisterForm" name="RegisterForm">
 				<div class="user-box">
-					<input type="text" name="" required="">
 					<label>Username</label>
+					<input id="Username" name="Username" type="text" required="" >
+					<span class='errorMsg'>
+					</span>
 				</div>
 				<div class="user-box">
-					<input type="password" name="" required="">
 					<label>Password</label>
+					<input id="Password" name="Password" type="password"  required="">
+					<span class='errorMsg'>
+					</span>
 				</div>
 				<div class="user-box">
-					<input id="fullName" type="text" name="" required="">
 					<label>Full Name</label>
+
+					<input id="FullName" name="FullName" type="text"  required="">
+					<span class='errorMsg'>
+					</span>
 				</div>
 				<div class="user-box">
-					<input id="email" type="text" name="" required="">
 					<label>Email</label>
+					<input id="email" name="email" type="text" required="">
+					<span class='errorMsg'>
+					</span>
 				</div>
 				<div class="user-box">
-				<input type="date" id="start" name="birth-date" min="1930-01-01" max="2021-12-31">
 				<label>Birth Date</label>
+				<input type="date" id="date" name="date" min="1930-01-01" max="2021-12-31">
+				<span class='errorMsg'>
+				</span>
 				</div>
-				<button>
+				<button id="SignUpFinal" name="SignUpFinal" type="submit">
 					<span></span>
 					<span></span>
 					<span></span>
@@ -196,29 +164,36 @@
 		<div id="Settings" style="display: none;" class="content">
 			<center>
 			<div class="login-box" >
-			<h2>Settings</h2>
-			<form>
+			<h2>Game Settings</h2></br>
+			<form action="" id="set">
 				<div class="user-box">
 					<input id="timerVal" type="number" value = "60" min="60" name="" required="">
 					<label>Time (Min 60 Seconds)</label>
 				</div>
 				<div class="user-box">
 					<label for="Ghosts">Number Of Ghosts</label>
-						<select id="Ghosts" name="Chose">
-							<option value="1">1</option>
-							<option value="2">2</option>
-							<option value="3">3</option>
-							<option value="4">4</option>
+						<select id="Ghosts" name="Choose">
+							<option >1</option>
+							<option >2</option>
+							<option >3</option>
+							<option >4</option>
 						</select>
 				</div>
 	
-				 <button onclick="showPage('gamePage');">
+				 <a href="#" onclick="showPage('gamePage');">
 					<span></span>
 					<span></span>
 					<span></span>
 					<span></span>
-					New Game
-				</button>
+					Start
+				 </a>
+				<a href="#" onclick="showPage('gamePage');">
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					Random
+				</a>
 				</form>
 			</div>
 			<!-- <input id="userInput" type="number" value = "60" min="60"/></br> -->
@@ -257,10 +232,21 @@
 
 	</body>
 	<footer id="infoOfUs" class="footer">
-		<p><h4>Authors: Omer Niv & Omer Tagger</h4></p>
- 		<p><h4>Contact Us:
+		<center>
+		<div class="footer-contact">	
+		<a>Authors: Omer Niv & Omer Tagger</a></br>
+ 		<a>Contact Us: </a>
 		<a href="mailto:nivom@post.bgu.ac.il">nivom@post.bgu.ac.il</a>
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
 		<a href="mailto:omertag@post.bgu.ac.il">omertag@post.bgu.ac.il</a></h4></p>
-
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+		</div>
+	</center>
 	</footer>
 </html>

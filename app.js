@@ -236,3 +236,9 @@ function playSong(){
 function pauseSong(){
 	song.pause();
 }
+
+
+function resetRegisterForm(){
+	document.getElementById("RegisterForm").reset();
+	showPage('Register');
+}
