@@ -6,6 +6,8 @@
 		<script src="./jquery-3.4.1.slim.min.js"></script>
 		<script type="text/javascript" src="./app.js"></script>
 		<script src="./pacman.js"></script>
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+		<link rel="stylesheet" href="/resources/demos/style.css">
 
 	</head>
 	<title>O&O Pac-Man</title>
@@ -33,7 +35,7 @@
 		<div id = "Welcome" class="content">
 			<img src="images/pac-man-logo-crop.png" class = "center">
 			<center>
-			<div class="login-box" >
+			<!-- <div class="login-box" >
 				<form>
 					<a href="#" onclick="showPage('Login');">
 						<span></span>
@@ -62,11 +64,11 @@
 						Settings
 					</a>
 					</form>
-				</div>
-			<!-- <button id="goToLogin" onclick= "showPage('Login');" type="button">Sign In</button>
-			<button id="goToLogin" onclick="showPage('Register');" type="button">Sign Up</button>
+				</div> -->
+			<button id="goToLogin" class="homeButtom" onclick= "showPage('Login');" type="button">Sign In</button>
+			<button id="goToLogin" class="homeButtom" onclick="showPage('Register');" type="button">Sign Up</button>
 			</br></br></br>
-			<button id="goToLogin" onclick="showPage('Settings');" type="button">Settings</button> -->
+			<button id="goToLogin" class="homeButtom" onclick="showPage('Settings');" type="button">Settings</button>
 
 			</center>		
 		</div>
@@ -96,13 +98,13 @@
 					<input type="password" name="" required="">
 					<label>Password</label>
 				</div>
-				<a href="#">
+				<button>
 					<span></span>
 					<span></span>
 					<span></span>
 					<span></span>
 					Sing In
-				</a>
+				</button>
 				</form>
 		  </div>
 		</center>
@@ -145,13 +147,13 @@
 				<input type="date" id="start" name="birth-date" min="1930-01-01" max="2021-12-31">
 				<label>Birth Date</label>
 				</div>
-				<a href="#">
+				<button>
 					<span></span>
 					<span></span>
 					<span></span>
 					<span></span>
 					Sing Up
-				</a>
+				</button>
 				</form>
 			</div>
 		</center>
@@ -175,9 +177,10 @@
 					<!-- <canvas id="canvas" height="600" width="600"></canvas> -->
 					<canvas id="canvas" height="600" width="600"></canvas>
 				</div>
-				<button id="play" onclick="playSong();" > &#9658  Play Music</button>
-				<button id="puase" onclick="pauseSong();" type="button"> &#10074&#10074  Pause Music</button>
-				<button id="goToLogin" onclick="showPage('Settings');" type="button">New Game</button>
+			</br></br>
+				<button class="homeButtom" id="play" onclick="playSong();" > &#9658  Play Music</button>
+				<button class="homeButtom" id="puase" onclick="pauseSong();" type="button"> &#10074&#10074  Pause Music</button>
+				<button class="homeButtom" id="goToLogin" onclick="showPage('Settings');" type="button">New Game</button>
 
 
 			</center>
@@ -200,18 +203,22 @@
 					<label>Time (Min 60 Seconds)</label>
 				</div>
 				<div class="user-box">
-					<input id="numOfGhosts" type="range" name="" required="" min="1" max="4" value="1" oninput="this.nextElementSibling.value = this.value">
-					<!-- <output>1</output> -->
-					<label>Number Of Ghosts</label>
+					<label for="Ghosts">Number Of Ghosts</label>
+						<select id="Ghosts" name="Chose">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+						</select>
 				</div>
-
-				<a href="#" onclick="showPage('gamePage');">
+	
+				 <button onclick="showPage('gamePage');">
 					<span></span>
 					<span></span>
 					<span></span>
 					<span></span>
 					New Game
-				</a>
+				</button>
 				</form>
 			</div>
 			<!-- <input id="userInput" type="number" value = "60" min="60"/></br> -->
