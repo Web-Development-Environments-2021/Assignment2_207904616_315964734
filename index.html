@@ -126,11 +126,10 @@
 		</center>
 		</div>
 		
+		<!-- <div style="width: 100%;" class="content"> -->
 		
 		<div id="gamePage" style="display: none;" class="content">
 			<!-- <embed loop="true" src="/music/Pac-man-theme-remix.wav" hidden="true" type="video/quicktime"></embed> -->
-			<center>
-				<img src="images/pac-man-logo-tight.png" height="120px" >
 				<div id="score">
 					<label for="lblScore">SCORE:</label>
 					<input id="lblScore" type="text" />
@@ -149,19 +148,14 @@
 				<button class="homeButtom" id="puase" onclick="pauseSong();" type="button"> &#10074&#10074  Pause Music</button>
 				<button class="homeButtom" id="goToLogin" onclick="showPage('Settings');" type="button">New Game</button>
 
-
-			</center>
 		</div>
 
-		<div id="About" class="modal" >
-			<div class="modal-content">
-				<span class="close">&times;</span>
-				<p>Some text in the Modal..</p>
-			</div>
-		</div>
+	
 
 		<div id="Settings" style="display: none;" class="content">
 			<center>
+			<img src="images/pac-man-logo-tight.png" height="120px" >
+
 			<div class="login-box" >
 			<h2>Game Settings</h2></br>
 			<form action="" id="set">
@@ -195,10 +189,20 @@
 				</a>
 				</form>
 			</div>
+		</center>
 			<!-- <input id="userInput" type="number" value = "60" min="60"/></br> -->
 			<!-- <button id="goToLogin" onclick="showPage('gamePage');" type="button">New Game</button> -->
-		</center>
+		
 		</div>
+		
+	<!-- </div> -->
+
+		<div id="About" class="modal" >
+			<div class="modal-content">
+				<span class="close">&times;</span>
+				<p>Some text in the Modal..</p>
+			</div>
+		</div>	
 
 
 		<script>

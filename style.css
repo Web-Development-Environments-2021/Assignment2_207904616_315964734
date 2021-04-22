@@ -23,6 +23,16 @@ box-shadow: 0 15px 25px rgba(0, 0, 0, 0.342);
 border-radius: 5px;
 }
 
+#gamePage{
+float: left;
+width: 40%;
+margin-left: 7%
+}
+
+/* #Settings{
+	margin-left: 55%;
+} */
+
 html, body {
 /* IE 10-11 didn't like using min-height */
 height: 100%;

@@ -168,8 +168,10 @@ function UpdatePosition() {
 		pac_color = "green";
 	}
 	if (score == 50) {
+		Draw();
+		song.pause();
 		window.clearInterval(interval);
-		window.alert("Game completed");
+		window.alert("Winner!!!");
 	} else {
 		Draw();
 	}
@@ -200,14 +202,18 @@ function showPage(divId) {
 	{
 	visibleDivId = divId;
 	}
+	hideNonVisibleDivs();
+	if (divId === "Settings"){
+		document.getElementById("Settings").style.marginLeft = "";
+	}
 	if (divId === "gamePage"){
+	showSettingsRight();
 	context = canvas.getContext("2d");
 	Start();
 	}
 	else{
 	pauseSong();
 	}	
-	hideNonVisibleDivs();
 }
 function hideNonVisibleDivs() {
 	var i, divId, div;
@@ -241,4 +247,12 @@ function pauseSong(){
 function resetRegisterForm(){
 	document.getElementById("RegisterForm").reset();
 	showPage('Register');
+}
+
+function showSettingsRight(){
+	set = document.getElementById("Settings");
+	set.style.marginLeft = "55%";
+	// set.style.width = "50%";
+	set.style.display = "block";
+
 }
