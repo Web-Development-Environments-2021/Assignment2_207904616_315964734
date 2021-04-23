@@ -22,7 +22,7 @@
 		
 
 		<div id="menu">
-			<ul><b>
+			<ul>
 			<li><img src="images/pacManIcon.png" alt="pacManLogo" height="40px" style="vertical-align: middle; cursor: pointer;" onclick= "showPage('Welcome');"></li>					
 			<li><a onclick= "showPage('Welcome');">Welcome</a></li>
 			<!-- <li><a onclick= "showPage('gamePage');"> Show Game</a></li> -->
@@ -33,7 +33,7 @@
 			<li><a id="buttomAbout" >About</a></li>
 			<li><img src="images/ghost.png" alt="pacManLogo" height="40px"  style="vertical-align: middle; cursor: pointer;" onclick= "showPage('Welcome');" ></li>					
 
-			</b></ul>
+			</ul>
 		</div>	
 				
 		<div class="container">
@@ -122,7 +122,7 @@
 					<span></span>
 					<span></span>
 					<span></span>
-					Sing Up
+					Sign Up
 				</button>
 				</form>
 			</div>
@@ -135,16 +135,16 @@
 			<!-- <embed loop="true" src="/music/Pac-man-theme-remix.wav" hidden="true" type="video/quicktime"></embed> -->
 		<div class="gameInfo">	
 			<div id="score" class="scoreLabel">
-					<label for="lblScore" style="padding: 0 4px;">SCORE: </label>
+					<label for="lblScore" style="padding: 0 4px;">SCORE</label>
 					<input id="lblScore" type="text" class="gameData"/>
 				</div>
 				<div id="time" class="scoreLabel">
-					<label for="lblTime" style="padding: 0 4px;">TIME: </label>
+					<label for="lblTime" style="padding: 0 4px;">TIME</label>
 					<input id="lblTime" type="text" class="gameData"/>
 				</div>
 
 				<div id="lives" class="scoreLabel">
-					<label for="lives" style="padding: 0 4px;">LIVES: </label>
+					<label for="lives" style="padding: 0 4px;">LIVES</label>
 					<input id="lives" type="text" class="gameData"/>
 				</div>
 			</div>
@@ -155,8 +155,8 @@
 				</div>
 
 			<div class="gameButtoms">
-				<button class="underGameButtom" id="play" onclick="playSong();" > &#9658  Play Music</button>
-				<button class="underGameButtom" id="puase" onclick="pauseSong();" type="button"> &#10074&#10074  Pause Music</button>
+				<button class="underGameButtom" id="play" onclick="togglePlay();" > &#9658;&#10074;&#10074; Music</button>
+				<!-- <button class="underGameButtom" id="puase" onclick="pauseSong();" type="button"> &#10074&#10074  Pause Music</button> -->
 				<button class="underGameButtom" id="goToLogin" onclick="showPage('Settings');" type="button">New Game</button>
 			</div>
 
