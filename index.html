@@ -29,7 +29,7 @@
 			
 			<li><a onclick= "showPage('Login');">Login</a></li>
 			<li><a onclick= "resetRegisterForm()"> Register</a></li>
-			<!-- <li><a onclick= "showPage('Settings');"> Settings</a></li> -->
+			<li><a onclick= "showPage('Settings');"> Settings</a></li>
 			<li><a id="buttomAbout" >About</a></li>
 			<li><img src="images/ghost.png" alt="pacManLogo" height="40px"  style="vertical-align: middle; cursor: pointer;" onclick= "showPage('Welcome');" ></li>					
 
@@ -39,13 +39,13 @@
 		<div class="container">
 
 		<div id = "Welcome" class="content">
-			<img src="images/pac-man-logo-crop.png" class = "center">
+			<img src="images/pac-man-logo-crop.png" class="centerPNG">
 			<center>
 
 			<button id="goToLogin" class="homeButtom" onclick= "showPage('Login');" type="button">Sign In</button>
 			<button id="goToLogin" class="homeButtom" onclick="resetRegisterForm()" type="button">Sign Up</button>
-			</br></br></br>
-			<button id="goToLogin" class="homeButtom" onclick="showPage('Settings');" type="button">Settings</button>
+			<!-- </br></br></br>
+			<button id="goToLogin" class="homeButtom" onclick="showPage('Settings');" type="button">Settings</button> -->
 
 			</center>		
 		</div>
@@ -134,13 +134,18 @@
 		<div id="gamePage" style="display: none;" class="content">
 			<!-- <embed loop="true" src="/music/Pac-man-theme-remix.wav" hidden="true" type="video/quicktime"></embed> -->
 		<div class="gameInfo">	
-			<div id="score">
-					<label for="lblScore">SCORE:</label>
-					<input id="lblScore" type="text" />
+			<div id="score" class="scoreLabel">
+					<label for="lblScore" style="padding: 0 4px;">SCORE: </label>
+					<input id="lblScore" type="text" class="gameData"/>
 				</div>
-				<div id="time">
-					<label for="lblTime">TIME:</label>
-					<input id="lblTime" type="text" />
+				<div id="time" class="scoreLabel">
+					<label for="lblTime" style="padding: 0 4px;">TIME: </label>
+					<input id="lblTime" type="text" class="gameData"/>
+				</div>
+
+				<div id="lives" class="scoreLabel">
+					<label for="lives" style="padding: 0 4px;">LIVES: </label>
+					<input id="lives" type="text" class="gameData"/>
 				</div>
 			</div>
 				</br>
@@ -150,9 +155,9 @@
 				</div>
 
 			<div class="gameButtoms">
-				<button class="homeButtom" id="play" onclick="playSong();" > &#9658  Play Music</button>
-				<button class="homeButtom" id="puase" onclick="pauseSong();" type="button"> &#10074&#10074  Pause Music</button>
-				<button class="homeButtom" id="goToLogin" onclick="showPage('Settings');" type="button">New Game</button>
+				<button class="underGameButtom" id="play" onclick="playSong();" > &#9658  Play Music</button>
+				<button class="underGameButtom" id="puase" onclick="pauseSong();" type="button"> &#10074&#10074  Pause Music</button>
+				<button class="underGameButtom" id="goToLogin" onclick="showPage('Settings');" type="button">New Game</button>
 			</div>
 
 		</div>
@@ -245,15 +250,9 @@
 		<a>Authors: Omer Niv & Omer Tagger</a></br>
  		<a>Contact Us: </a>
 		<a href="mailto:nivom@post.bgu.ac.il">nivom@post.bgu.ac.il</a>
-		<span></span>
-		<span></span>
-		<span></span>
-		<span></span>
+	
 		<a href="mailto:omertag@post.bgu.ac.il">omertag@post.bgu.ac.il</a></h4></p>
-		<span></span>
-		<span></span>
-		<span></span>
-		<span></span>
+
 		</div>
 	</center>
 	</footer>

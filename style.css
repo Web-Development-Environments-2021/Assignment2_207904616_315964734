@@ -2,7 +2,7 @@
 {
 	/* position: fixed; */
 	width: 100%;
-	height: 60px;
+	height: 62px;
 	background-color: #667292
     
 	/* opacity: 0.4 */
@@ -34,6 +34,8 @@ border-radius: 5px;
 	display: flex;
 	flex-flow: row;
 	justify-content: center;
+	margin-top: 10px;
+	
 }
 
 .gameInfo{
@@ -41,17 +43,33 @@ border-radius: 5px;
 	display: flex;
 	flex-flow: row;
 	justify-content: center;
+	padding: 10px;
+	border-radius: 7px;
+	background: linear-gradient(to right,  transparent ,transparent, white , white, transparent,transparent );
+
+	
 }
 
-/* #gamePage{
-float: left;
-width: 40%;
-margin-left: 7%
-} */
+#game{
+	margin-bottom: 20px;
+}
 
-/* #Settings{
-	margin-left: 55%;
-} */
+.gameData{
+	width: 37%;
+	background-color: #667292;
+	color: white;
+	border-radius: 5px;
+	box-shadow: none;
+	text-align: center;
+	font-weight: bold
+}
+
+.scoreLabel{
+	width: 17%;
+	color: #667292;
+	font-weight: bold;
+}
+
 
 html, body {
 /* IE 10-11 didn't like using min-height */
@@ -99,13 +117,14 @@ ul {
 	overflow: hidden;
 }
 
-.center {
+.centerPNG {
 	flex: 1 0 auto; /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
 	padding: 20px;
     display: block;
     margin-left: auto;
     margin-right: auto;
     width: 50%;
+	margin-top: -100px;
 	
 }
 
@@ -149,21 +168,49 @@ cursor: pointer;
 
 .homeButtom{
 	background-color:#667292;
+	
 	color:white;
-	padding: 15px 32px;
+	padding: 12px 100px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 6px 40px;
+	cursor: pointer;
+	border-radius: 4px;
+	box-shadow: 0 15px 25px rgba(0, 0, 0, 0.342);
+	border: none;
+	position: relative;
+	text-transform: uppercase;
+	overflow: hidden;
+	transition: .5s;
+	/* text-transform: uppercase; */
+	
+	letter-spacing: 2px
+
+
+  } 
+
+.underGameButtom{
+	background-color:#667292;
+	color:white;
+	padding: 10px 26px;
 	text-align: center;
 	text-decoration: none;
 	display: inline-block;
 	font-size: 16px;
 	margin: 6px 10px;
 	cursor: pointer;
-	border-radius: 6px; 
-	box-shadow: 0 15px 25px rgba(0, 0, 0, 0.342);
+	border-radius: 4px;
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.342);
+	border: none;
+}
 
-  } 
+.homeButtom:hover, .underGameButtom:hover{
+	background-color: #8d9db6;
+	box-shadow: 0 10px 20px rgba(255, 255, 255, 0.322);
+	border-color: #667292;
 
-.homeButtom:hover{
-	background-color: #8d9db6;	
 }
 
 

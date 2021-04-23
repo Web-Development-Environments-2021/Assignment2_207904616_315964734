@@ -15,12 +15,15 @@ $(document).ready(function() {
 
 function Start() {
 
-	startMusic();
+	//###################################
+	// startMusic();
+	//####################################
+
 
 	board = new Array();
 	score = 0;
 	pac_color = "yellow";
-	var cnt = 100;
+	var cnt = 900;
 	var food_remain = 50;
 	var pacman_remain = 1;
 	start_time = new Date();
@@ -77,11 +80,11 @@ function Start() {
 }
 
 function findRandomEmptyCell(board) {
-	var i = Math.floor(Math.random() * 9 + 1);
-	var j = Math.floor(Math.random() * 9 + 1);
+	var i = Math.floor(Math.random() * 29 + 1);
+	var j = Math.floor(Math.random() * 29 + 1);
 	while (board[i][j] != 0) {
-		i = Math.floor(Math.random() * 9 + 1);
-		j = Math.floor(Math.random() * 9 + 1);
+		i = Math.floor(Math.random() * 29 + 1);
+		j = Math.floor(Math.random() * 29 + 1);
 	}
 	return [i, j];
 }
@@ -117,7 +120,7 @@ function Draw() {
 				context.fillStyle = pac_color; //color
 				context.fill();
 				context.beginPath();
-				context.arc(center.x + 5, center.y - 15/3, 5/3, 0, 2 * Math.PI); // circle
+				context.arc(center.x + 5/3, center.y - 15/3, 5/3, 0, 2 * Math.PI); // circle
 				context.fillStyle = "black"; //color
 				context.fill();
 			} else if (board[i][j] == 1) {
@@ -144,7 +147,7 @@ function UpdatePosition() {
 		}
 	}
 	if (x == 2) {
-		if (shape.j < 9 && board[shape.i][shape.j + 1] != 4) {
+		if (shape.j < 29 && board[shape.i][shape.j + 1] != 4) {
 			shape.j++;
 		}
 	}
@@ -154,7 +157,7 @@ function UpdatePosition() {
 		}
 	}
 	if (x == 4) {
-		if (shape.i < 9 && board[shape.i + 1][shape.j] != 4) {
+		if (shape.i < 29 && board[shape.i + 1][shape.j] != 4) {
 			shape.i++;
 		}
 	}
@@ -182,16 +185,6 @@ function UpdatePosition() {
 var divs = ["gamePage", "Register", "Login", "Welcome", "Settings"];
 
 
-// function showGameBorad() {
-// 	var x = document.getElementById("gamePage");
-// 	if (x.style.display === "none") {
-// 		context = canvas.getContext("2d");
-// 		Start();
-// 	  	x.style.display = "block";
-// 	} else {
-// 	  x.style.display = "none";
-// 	}
-//   }
 
 var visibleDivId = null;
 function showPage(divId) {
@@ -251,7 +244,7 @@ function resetRegisterForm(){
 		element.classList.remove("error");
 		element.innerHTML = "";
 	})
-	
+
 	showPage('Register');
 }
 
