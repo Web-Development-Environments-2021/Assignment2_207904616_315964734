@@ -23,11 +23,31 @@ box-shadow: 0 15px 25px rgba(0, 0, 0, 0.342);
 border-radius: 5px;
 }
 
-#gamePage{
+.container{
+	display: flex;
+	flex-flow: row;
+	justify-content: center;
+
+}
+
+.gameButtoms{
+	display: flex;
+	flex-flow: row;
+	justify-content: center;
+}
+
+.gameInfo{
+
+	display: flex;
+	flex-flow: row;
+	justify-content: center;
+}
+
+/* #gamePage{
 float: left;
 width: 40%;
 margin-left: 7%
-}
+} */
 
 /* #Settings{
 	margin-left: 55%;
@@ -40,10 +60,13 @@ height: 100%;
 body {
 display: flex;
 flex-direction: column;
+margin: 0;
+justify-content: space-between;
 }
 .content {
 flex: 1 0 auto; /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
 padding: 20px;
+text-align: center;
 }
 
 li a
@@ -144,17 +167,7 @@ cursor: pointer;
 }
 
 
-.footer {
-	/* position: fixed; */
-	left: 0;
-	bottom: 0;
-	width: 100%;
-	color: white;
-	text-align: center;
-	flex-shrink: 0; /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
-	/* padding: 20px; */
-	background-color:#667292
-}
+
 
 /* input
 {
