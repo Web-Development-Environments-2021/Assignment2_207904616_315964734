@@ -89,6 +89,7 @@ html, body {
 /* IE 10-11 didn't like using min-height */
 height: 100%;
 }
+
 body {
 display: flex;
 flex-direction: column;

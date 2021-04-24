@@ -465,3 +465,4 @@ function showSettingsRight(){
 function oneSecond(){
 	timer--;
 }
+
