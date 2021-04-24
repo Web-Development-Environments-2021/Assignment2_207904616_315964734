@@ -64,7 +64,7 @@ border:12px solid #d8dbe4;
 }
 
 .gameData{
-	width: 37%;
+	width: 30%;
 	background-color: #667292;
 	color: white;
 	border-radius: 7px;
@@ -89,6 +89,7 @@ html, body {
 /* IE 10-11 didn't like using min-height */
 height: 100%;
 }
+
 body {
 display: flex;
 flex-direction: column;
