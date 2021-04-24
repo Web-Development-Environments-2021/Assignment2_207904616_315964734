@@ -33,5 +33,8 @@ document.addEventListener('keydown', function(e) {
           e.preventDefault();
           return false;
       }
+      if (key == 27){
+        modal.style.display = "none";
+      }
       return true;
 });

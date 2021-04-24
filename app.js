@@ -6,7 +6,15 @@ var pac_color;
 var start_time;
 var time_elapsed;
 var interval;
+
+let pacmanLives;
+let timerInterval;
+let timer;
 let song =new Audio("./music/Pac-man-theme-remix.mp3");
+
+let image = document.createElement('img');
+image.src = 'images/timer.png';
+
 
 $(document).ready(function() {
 	// context = canvas.getContext("2d");
@@ -18,17 +26,24 @@ function Start() {
 	//###################################
 	// startMusic();
 	//####################################
+	window.clearInterval(timerInterval);
+	timer = 30;
+	pacmanLives = 5;
+	var balls = 90;
 
+
+	let timerFoodRamain = 5;
 
 	board = new Array();
 	score = 0;
 	pac_color = "yellow";
 	var cnt = 900;
-	var food_remain = 60;
-	var good_food_remain = 30;
-	var super_food_remain = 10;
+	
+	var food_remain = Math.round(0.6*balls);
+	var good_food_remain = Math.round(0.3*balls);
+	var super_food_remain = Math.round(0.1*balls);
 	var pacman_remain = 1;
-	start_time = new Date();
+	// start_time = new Date();
 	for (var i = 0; i < 30; i++) {
 		board[i] = new Array();
 		//put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
@@ -55,14 +70,116 @@ function Start() {
 				(i == 19 && j == 28) ||
 				(i == 9 && j == 9) ||
 				(i == 8 && j == 9) ||
-				(i == 7 && j == 9) 
+				(i == 7 && j == 9) ||
+
+				(i == 16 && j == 25) ||
+				(i == 16 && j == 24) ||
+				(i == 19 && j == 15) ||
+				(i == 20 && j == 15) ||
+				(i == 21 && j == 15) ||
+				(i == 3 && j == 25) ||
+				(i == 4 && j == 25) ||
+				(i == 5 && j == 25) ||
+				(i == 11 && j == 11) ||
+				(i == 12 && j == 11) ||
+				(i == 20 && j == 20) ||
+				(i == 20 && j == 21) ||
+				(i == 20 && j == 22) ||
+				(i == 19 && j == 21) ||
+				(i == 29 && j == 11) ||
+				(i == 28 && j == 11) ||
+
+				(i == 26 && j == 3) ||
+				(i == 26 && j == 4) ||
+				(i == 26 && j == 5) ||
+				(i == 27 && j == 4) ||
+				(i == 28 && j == 5) ||
+				(i == 25 && j == 7) ||
+				(i == 24 && j == 8) ||
+				(i == 23 && j == 10) ||
+				(i == 24 && j == 10) ||
+				(i == 26 && j == 11) ||
+
+				(i == 3 && j == 11) ||
+				(i == 4 && j == 11) ||
+				(i == 5 && j == 15) ||
+				(i == 6 && j == 13) ||
+				(i == 3 && j == 18) ||
+				(i == 7 && j == 18) ||
+				(i == 6 && j == 9) ||
+				(i == 4 && j == 16) ||
+				(i == 2 && j == 16) ||
+				(i == 5 && j == 11) ||
+
+				(i == 14 && j == 2) ||
+				(i == 15 && j == 2) ||
+				(i == 11 && j == 3) ||
+				(i == 12 && j == 3) ||
+				(i == 18 && j == 4) ||
+				(i == 16 && j == 5) ||
+				(i == 17 && j == 5) ||
+				(i == 19 && j == 6) ||
+				(i == 15 && j == 5) ||
+				(i == 9 && j == 3) ||
+				
+				(i == 26 && j == 26) ||
+				(i == 26 && j == 28) ||
+				(i == 26 && j == 25) ||
+				(i == 27 && j == 22) ||
+				(i == 28 && j == 25) ||
+				(i == 25 && j == 25) ||
+				(i == 24 && j == 23) ||
+				(i == 23 && j == 26) ||
+				(i == 24 && j == 28) ||
+				(i == 26 && j == 24) ||
+
+				(i == 26 && j == 16) ||
+				(i == 26 && j == 17) ||
+				(i == 26 && j == 18) ||
+				(i == 27 && j == 20) ||
+				(i == 28 && j == 15) ||
+				(i == 25 && j == 15) ||
+				(i == 24 && j == 14) ||
+				(i == 23 && j == 14) ||
+				(i == 24 && j == 15) ||
+				(i == 26 && j == 14) ||
+				
+				(i == 0 && j == 10) ||
+				(i == 1 && j == 10) ||
+				(i == 2 && j == 10) ||
+				(i == 0 && j == 20) ||
+				(i == 1 && j == 20) ||
+				(i == 3 && j == 22) ||
+				(i == 0 && j == 25) ||
+				(i == 1 && j == 26) ||
+				(i == 3 && j == 27) ||
+				(i == 1 && j == 28) ||
+				(i == 23 && j == 0) ||
+				(i == 23 && j == 1) ||
+				(i == 23 && j == 2) ||
+				(i == 23 && j == 3) ||
+
+				(i == 15 && j == 15) ||
+				(i == 16 && j == 15) ||
+				(i == 15 && j == 16) ||
+				(i == 17 && j == 15) ||
+
+				(i == 9 && j == 29) ||
+				(i == 9 && j == 28) ||
+				(i == 9 && j == 27) ||
+				(i == 9 && j == 26) ||
+				(i == 15 && j == 29) ||
+				(i == 15 && j == 28) ||
+				(i == 15 && j == 27) 
+
+				
 			) {
 				board[i][j] = 4;
 			} else {
 				var randomNum = Math.random();
 				if (randomNum <= (1.0 * food_remain) / cnt) {
 					food_remain--;
-					board[i][j] = 1;
+					board[i][j] = 5;
 				} else if (randomNum < (1.0 * (pacman_remain + food_remain)) / cnt) {
 					shape.i = i;
 					shape.j = j;
@@ -77,7 +194,7 @@ function Start() {
 	}
 	while (food_remain > 0) {
 		var emptyCell = findRandomEmptyCell(board);
-		board[emptyCell[0]][emptyCell[1]] = 1;
+		board[emptyCell[0]][emptyCell[1]] = 5;
 		food_remain--;
 	}
 	while (good_food_remain > 0) {
@@ -89,6 +206,12 @@ function Start() {
 		var emptyCell = findRandomEmptyCell(board);
 		board[emptyCell[0]][emptyCell[1]] = 7;
 		super_food_remain--;
+	}
+
+	while (timerFoodRamain > 0) {
+		var emptyCell = findRandomEmptyCell(board);
+		board[emptyCell[0]][emptyCell[1]] = 11;
+		timerFoodRamain--;
 	}
 	keysDown = {};
 	addEventListener(
@@ -106,6 +229,8 @@ function Start() {
 		false
 	);
 	interval = setInterval(UpdatePosition, 75);
+	timerInterval = setInterval(oneSecond, 1000);
+
 }
 
 function findRandomEmptyCell(board) {
@@ -137,6 +262,7 @@ function Draw() {
 	canvas.width = canvas.width; //clean board
 	lblScore.value = score;
 	lblTime.value = time_elapsed;
+	lbllives.value = pacmanLives;
 	for (var i = 0; i < 30; i++) {
 		for (var j = 0; j < 30; j++) {
 			var center = new Object();
@@ -152,18 +278,18 @@ function Draw() {
 				context.arc(center.x + 5/3, center.y - 15/3, 5/3, 0, 2 * Math.PI); // circle
 				context.fillStyle = "black"; //color
 				context.fill();
-			} else if (board[i][j] == 1) {
+			} else if (board[i][j] == 5) { // big balls
 				context.beginPath();
 				context.arc(center.x, center.y, 15/3 *1.2 , 0, 2 * Math.PI); // circle
 				context.fillStyle = "black"; //color
 				context.fill();
 			
-			}else if (board[i][j] == 6) {
+			}else if (board[i][j] == 6) { // medium balls
 				context.beginPath();
 				context.arc(center.x, center.y, 15/3 * 0.8 , 0, 2 * Math.PI); // circle
 				context.fillStyle = "red"; //color
 				context.fill();
-			} else if (board[i][j] == 7) {
+			} else if (board[i][j] == 7) { //small balls
 				context.beginPath();
 				context.arc(center.x, center.y, 15/3 * 0.6 , 0, 2 * Math.PI); // circle
 				context.fillStyle = "green"; //color
@@ -173,6 +299,13 @@ function Draw() {
 				context.beginPath();
 				context.rect(center.x - 30/3, center.y - 30/3, 60/3, 60/3);
 				context.fillStyle = "#d8dbe4"; //color
+				context.fill();
+			}
+
+			else if (board[i][j] == 11) {
+				context.beginPath();
+				context.drawImage(image, center.x - 10, center.y - 10, 20, 20); // circle
+				// context.fillStyle = "#d8dbe4"; //color
 				context.fill();
 			}
 		}
@@ -211,18 +344,42 @@ function UpdatePosition() {
 	if (board[shape.i][shape.j] == 7) {
 		score = score +25;
 	}
-	board[shape.i][shape.j] = 2;
-	var currentTime = new Date();
-	time_elapsed = (currentTime - start_time) / 1000;
-	if (score >= 100 && time_elapsed <= 10) {
-		pac_color = "green";
+	if (board[shape.i][shape.j] == 11) {
+		timer = timer +5;
 	}
-	if (score >= 300) {
-		Draw();
-		song.pause();
+	board[shape.i][shape.j] = 2;
+	// var currentTime = new Date();
+	// time_elapsed = (currentTime - start_time) / 1000;
+	time_elapsed = timer;
+	if (time_elapsed <= 5) {
+		pac_color = "#ec0000";
+	}
+	else if (time_elapsed <= 10) {
+		pac_color = "#ec2400";
+	}
+	else if (time_elapsed <= 15) {
+		pac_color = "#ec5300";
+	}
+	else if (time_elapsed <= 20) {
+		pac_color = "#ec9b00";
+	}
+	
+	else if (time_elapsed <= 25) {
+		pac_color = "#ecca00";
+	}
+	
+	
+	
+
+
+
+	if (timer < 0) {
+		pauseSong();
 		window.clearInterval(interval);
-		window.alert("Winner!!!");
-	} else {
+		window.clearInterval(timerInterval);
+
+		window.alert("Winner!!!"); }
+	 else {
 		Draw();
 	}
 }
@@ -252,6 +409,7 @@ function showPage(divId) {
 	Start();
 	}
 	else{
+	window.clearInterval(timerInterval);
 	pauseSong();
 	}	
 }
@@ -279,6 +437,10 @@ function togglePlay() {
 	return song.paused ? song.play() : song.pause();
   };
 
+function pauseSong(){
+	song.pause();
+}
+
 
 function resetRegisterForm(){
 	document.getElementById("RegisterForm").reset();
@@ -297,4 +459,9 @@ function showSettingsRight(){
 	// set.style.width = "50%";
 	set.style.display = "block";
 
+}
+
+
+function oneSecond(){
+	timer--;
 }
