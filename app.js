@@ -13,8 +13,11 @@ let timer;
 let timeFromUser;
 let song =new Audio("./music/Pac-man-theme-remix.mp3");
 
+let keyPressed;
+let newKey;
+
 let timerImage = document.createElement('img');
-timerImage.src = 'images/timer.png';
+timerImage.src = 'images/timer2.png';
 
 let heartImage = document.createElement('img');
 heartImage.src = 'images/heart.png';
@@ -38,6 +41,7 @@ function Start() {
 	
 	pacmanLives = 5;
 	var balls = 90;
+	keyPressed = 0;
 
 
 	let timerFoodRamain = 5;
@@ -243,7 +247,7 @@ function Start() {
 		},
 		false
 	);
-	interval = setInterval(UpdatePosition, 75);
+	interval = setInterval(UpdatePosition, 100);
 	timerInterval = setInterval(oneSecond, 1000);
 
 }
@@ -271,6 +275,9 @@ function GetKeyPressed() {
 	if (keysDown[39]) {
 		return 4;
 	}
+	else{
+		return keyPressed;
+	}
 }
 
 function Draw() {
@@ -284,15 +291,48 @@ function Draw() {
 			center.x = i * 60/3 + 30/3;
 			center.y = j * 60/3 + 30/3;
 			if (board[i][j] == 2) {
-				context.beginPath();
-				context.arc(center.x, center.y, 30/3, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
-				context.lineTo(center.x, center.y);
-				context.fillStyle = pac_color; //color
-				context.fill();
-				context.beginPath();
-				context.arc(center.x + 5/3, center.y - 15/3, 5/3, 0, 2 * Math.PI); // circle
-				context.fillStyle = "black"; //color
-				context.fill();
+
+				if (keyPressed == 1){  //up
+					context.beginPath();
+					context.arc(center.x, center.y, 30/3, 1.65 * Math.PI, 1.35 * Math.PI); // half circle
+					context.lineTo(center.x, center.y);
+					context.fillStyle = pac_color; //color
+					context.fill();
+					context.beginPath();
+					context.arc(center.x + 15/3, center.y + 2/3, 5/3, 0, 2 * Math.PI); // circle
+					context.fillStyle = "black"; //color
+					context.fill();
+				} else if (keyPressed == 2){ // down
+					context.beginPath();
+					context.arc(center.x, center.y, 30/3, 0.65 * Math.PI, 0.35 * Math.PI); // half circle
+					context.lineTo(center.x, center.y);
+					context.fillStyle = pac_color; //color
+					context.fill();
+					context.beginPath();
+					context.arc(center.x - 15/3, center.y + 2/3, 5/3, 0, 2 * Math.PI); // circle
+					context.fillStyle = "black"; //color
+					context.fill();
+				} else if (keyPressed == 3){ //left
+					context.beginPath();
+					context.arc(center.x, center.y, 30/3, 1.15 * Math.PI,  0.85 * Math.PI); // half circle
+					context.lineTo(center.x, center.y);
+					context.fillStyle = pac_color; //color
+					context.fill();
+					context.beginPath();
+					context.arc(center.x - 5/3, center.y - 15/3, 5/3, 0, 2 * Math.PI); // circle
+					context.fillStyle = "black"; //color
+					context.fill();
+				} else { 					//right
+					context.beginPath();
+					context.arc(center.x, center.y, 30/3, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
+					context.lineTo(center.x, center.y);
+					context.fillStyle = pac_color; //color
+					context.fill();
+					context.beginPath();
+					context.arc(center.x + 5/3, center.y - 15/3, 5/3, 0, 2 * Math.PI); // circle
+					context.fillStyle = "black"; //color
+					context.fill();
+				}
 			} else if (board[i][j] == 5) { // big balls
 				context.beginPath();
 				context.arc(center.x, center.y, 15/3 *1.2 , 0, 2 * Math.PI); // circle
@@ -331,8 +371,7 @@ function Draw() {
 
 			else if (board[i][j] == 12) {
 				context.beginPath();
-				context.drawImage(timerImage, center.x - 10, center.y - 10, 20, 20); // circle
-				// context.fillStyle = "#d8dbe4"; //color
+				context.drawImage(timerImage, center.x - 10, center.y - 10, 20, 20); 
 				context.fill();
 			}
 			else if (board[i][j] == 13) { // lives
@@ -362,29 +401,33 @@ function Draw() {
 }
 
 function UpdatePosition() {
+
+	keyPressed = GetKeyPressed();
+	
+
 	board[shape.i][shape.j] = 0;
-	var x = GetKeyPressed();
-	if (x == 1) {
+
+	if (keyPressed == 1) {
 		if (shape.j > 0 && board[shape.i][shape.j - 1] != 4) {
 			shape.j--;
 		}
 	}
-	if (x == 2) {
+	if (keyPressed == 2) {
 		if (shape.j < 29 && board[shape.i][shape.j + 1] != 4) {
 			shape.j++;
 		}
 	}
-	if (x == 3) {
+	if (keyPressed == 3) {
 		if (shape.i > 0 && board[shape.i - 1][shape.j] != 4) {
 			shape.i--;
 		}
 	}
-	if (x == 4) {
+	if (keyPressed == 4) {
 		if (shape.i < 29 && board[shape.i + 1][shape.j] != 4) {
 			shape.i++;
 		}
 	}
-	if (board[shape.i][shape.j] == 1) {
+	if (board[shape.i][shape.j] == 5) {
 		score = score +5;
 	}
 	if (board[shape.i][shape.j] == 6) {
