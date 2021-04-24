@@ -59,14 +59,14 @@
 				<h2>Login</h2>
 				<form>
 				<div class="user-box">
-					<input type="text" name="" required="">
+					<input id="LoginUsername" type="text" name="LoginUsername" required="">
 					<label>Username</label>
 				</div>
 				<div class="user-box">
-					<input type="password" name="" required="">
+					<input id="LoginPassword" type="password" name="LoginPassword" required="">
 					<label>Password</label>
 				</div>
-				<button>
+				<button id="SignInButton" name ="SignInButton" onclick="CheckIfUserExists()">
 					<span></span>
 					<span></span>
 					<span></span>
@@ -117,7 +117,7 @@
 				<span class='errorMsg'>
 				</span>
 				</div>
-				<button id="SignUpFinal" name="SignUpFinal" type="submit">
+				<button id="SignUpFinal" name="SignUpFinal" type="submit" onclick="AddUser()">
 					<span></span>
 					<span></span>
 					<span></span>
@@ -144,8 +144,8 @@
 				</div>
 
 				<div id="lives" class="scoreLabel">
-					<label for="lives" style="padding: 0 4px;">LIVES</label>
-					<input id="lives" type="text" class="gameData"/>
+					<label for="lbllives" style="padding: 0 4px;">LIVES</label>
+					<input id="lbllives" type="text" class="gameData"/>
 				</div>
 			</div>
 				</br>
