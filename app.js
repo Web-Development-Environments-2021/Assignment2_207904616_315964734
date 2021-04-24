@@ -10,10 +10,14 @@ var interval;
 let pacmanLives;
 let timerInterval;
 let timer;
+let timeFromUser;
 let song =new Audio("./music/Pac-man-theme-remix.mp3");
 
-let image = document.createElement('img');
-image.src = 'images/timer.png';
+let timerImage = document.createElement('img');
+timerImage.src = 'images/timer.png';
+
+let heartImage = document.createElement('img');
+heartImage.src = 'images/heart.png';
 
 
 $(document).ready(function() {
@@ -26,13 +30,18 @@ function Start() {
 	//###################################
 	// startMusic();
 	//####################################
+
 	window.clearInterval(timerInterval);
-	timer = 30;
+
+	timeFromUser = 60;
+	timer = timeFromUser;
+	
 	pacmanLives = 5;
 	var balls = 90;
 
 
 	let timerFoodRamain = 5;
+	let heartRemain = 4;
 
 	board = new Array();
 	score = 0;
@@ -213,6 +222,12 @@ function Start() {
 		board[emptyCell[0]][emptyCell[1]] = 11;
 		timerFoodRamain--;
 	}
+
+	while (heartRemain > 0) {
+		var emptyCell = findRandomEmptyCell(board);
+		board[emptyCell[0]][emptyCell[1]] = 13;
+		heartRemain--;
+	}
 	keysDown = {};
 	addEventListener(
 		"keydown",
@@ -261,7 +276,7 @@ function GetKeyPressed() {
 function Draw() {
 	canvas.width = canvas.width; //clean board
 	lblScore.value = score;
-	lblTime.value = time_elapsed;
+	lblTime.value = timer;
 	lbllives.value = pacmanLives;
 	for (var i = 0; i < 30; i++) {
 		for (var j = 0; j < 30; j++) {
@@ -295,16 +310,50 @@ function Draw() {
 				context.fillStyle = "green"; //color
 				context.fill();
 			}
-			 else if (board[i][j] == 4) {
+			 else if (board[i][j] == 4) { //wall
 				context.beginPath();
 				context.rect(center.x - 30/3, center.y - 30/3, 60/3, 60/3);
 				context.fillStyle = "#d8dbe4"; //color
 				context.fill();
 			}
+			else if (board[i][j] == 11) {  //timer
+				let rand = Math.random();
+				if (rand > 0.9997){
+					board[i][j] = 12
+				}
+				else if (rand > 0.9992 && timer < timeFromUser/2){
+					board[i][j] = 12
+				}
+				else if (rand > 0.997 && timer < timeFromUser/4){
+					board[i][j] = 12
+				}
+			}
 
-			else if (board[i][j] == 11) {
+			else if (board[i][j] == 12) {
 				context.beginPath();
-				context.drawImage(image, center.x - 10, center.y - 10, 20, 20); // circle
+				context.drawImage(timerImage, center.x - 10, center.y - 10, 20, 20); // circle
+				// context.fillStyle = "#d8dbe4"; //color
+				context.fill();
+			}
+			else if (board[i][j] == 13) { // lives
+				let intrand = Math.random();
+				if (intrand > 0.9995){
+					board[i][j] = 14
+				}
+				else if (intrand > 0.9992 && pacmanLives < 4){
+					board[i][j] = 14
+				}
+				else if (intrand > 0.999 && pacmanLives < 3){
+					board[i][j] = 14
+				}
+				else if (intrand > 0.992 && pacmanLives < 2){
+					board[i][j] = 14
+				}
+			}
+
+			else if (board[i][j] == 14) {
+				context.beginPath();
+				context.drawImage(heartImage, center.x - 10, center.y - 10, 20, 20); // circle
 				// context.fillStyle = "#d8dbe4"; //color
 				context.fill();
 			}
@@ -344,42 +393,51 @@ function UpdatePosition() {
 	if (board[shape.i][shape.j] == 7) {
 		score = score +25;
 	}
-	if (board[shape.i][shape.j] == 11) {
+	if (board[shape.i][shape.j] == 12) {
 		timer = timer +5;
+	}
+
+	if (board[shape.i][shape.j] == 14) {
+		pacmanLives++;
 	}
 	board[shape.i][shape.j] = 2;
 	// var currentTime = new Date();
 	// time_elapsed = (currentTime - start_time) / 1000;
-	time_elapsed = timer;
-	if (time_elapsed <= 5) {
+	// time_elapsed = timer;
+	if (timer <= 5) {
 		pac_color = "#ec0000";
 	}
-	else if (time_elapsed <= 10) {
+	else if (timer <= 10) {
 		pac_color = "#ec2400";
 	}
-	else if (time_elapsed <= 15) {
+	else if (timer <= 15) {
 		pac_color = "#ec5300";
 	}
-	else if (time_elapsed <= 20) {
+	else if (timer <= 20) {
 		pac_color = "#ec9b00";
 	}
 	
-	else if (time_elapsed <= 25) {
+	else if (timer <= 25) {
 		pac_color = "#ecca00";
 	}
-	
-	
-	
 
 
-
-	if (timer < 0) {
+	if (pacmanLives == 0){
 		pauseSong();
 		window.clearInterval(interval);
 		window.clearInterval(timerInterval);
-
+		window.alert("Loser!"); 
+	}
+	else if (timer < 0) {
+		pauseSong();
+		window.clearInterval(interval);
+		window.clearInterval(timerInterval);
+		if (score > 100){ 
 		window.alert("Winner!!!"); }
-	 else {
+		else {
+			window.alert("You are better than " + score + " points!"); }
+	}
+	else {
 		Draw();
 	}
 }
