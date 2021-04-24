@@ -27,7 +27,7 @@
 			<li><a onclick= "showPage('Welcome');">Welcome</a></li>
 			<!-- <li><a onclick= "showPage('gamePage');"> Show Game</a></li> -->
 			
-			<li><a onclick= "showPage('Login');">Login</a></li>
+			<li><a onclick= "resetLoginForm()">Login</a></li>
 			<li><a onclick= "resetRegisterForm()"> Register</a></li>
 			<li><a onclick= "showPage('Settings');"> Settings</a></li>
 			<li><a id="buttomAbout" >About</a></li>
@@ -42,7 +42,7 @@
 			<img src="images/pac-man-logo-crop.png" class="centerPNG">
 			<center>
 
-			<button id="goToLogin" class="homeButtom" onclick= "showPage('Login');" type="button">Sign In</button>
+			<button id="goToLogin" class="homeButtom" onclick= "resetLoginForm()" type="button">Sign In</button>
 			<button id="goToLogin" class="homeButtom" onclick="resetRegisterForm()" type="button">Sign Up</button>
 			<!-- </br></br></br>
 			<button id="goToLogin" class="homeButtom" onclick="showPage('Settings');" type="button">Settings</button> -->
@@ -57,7 +57,7 @@
 
 			<div class="login-box" >
 				<h2>Login</h2>
-				<form>
+				<form id="LoginForm" name="LoginForm">
 				<div class="user-box">
 					<input id="LoginUsername" type="text" name="LoginUsername" required="">
 					<label>Username</label>

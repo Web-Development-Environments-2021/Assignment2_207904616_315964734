@@ -6,7 +6,7 @@ $(function(){
 
   // Method that checks if user exists in registration
   $.validator.addMethod('userExists',function(value,element){
-    return !(value in usersDict);
+    return (value in usersDict);
   })
 
   // Check that the password has at least 6 chars
@@ -63,7 +63,7 @@ $(function(){
         messages: {
         Username:{
             required:"Please enter user name",
-            userExists:"The user name exists. try another one"
+           userExists:"The user name exists. try another one"
         },
         Password: {
             required: "Please enter password",
@@ -90,38 +90,32 @@ $(function(){
 })
 
 function AddUser(){
-  alert("blablablaaaaa");
   if($('#RegisterForm').valid()){
-    alert("if is passed");
-    let userName=$("#Username").value;
-    let password=$("#Password").value;
-    let fullName=$("#FullName").value;
-    let email=$("#email").value;
-    let date=$("#date").value;
-    usersDict[userName]=[password, fullName, email, birthDate];
+    let userName = $("#Username").val();
+    let password= $("#Password").val();
+    let fullName= $("#FullName").val();
+    let email= $("#email").val();
+    let date=$("#date").val();
+    usersDict[userName]=[password, fullName, email, date];
+    console.log(usersDict);
+    debugger
   }
-  // else{
-  //   resetRegisterForm();
-  // }
-  console.log(usersDict);
-}
+}  
+  
 
 // is user exists then move him to the Settings page in Login
-function CheckIfUserExists(){
-  // var userEntered = document.getElementById("LoginUsername").value();
-  // alert(userEntered);
-  // var passwordEntered = document.getElementById("LoginPassword").value();
-  // alert(passwordEntered);
+function CheckIfUserExists(){  
   var userEntered = $("#LoginUsername").val()
-  var passwo
-  alert($("#LoginUsername").val());
-  if($("#LoginUsername").val() in usersDict){
-    alert("user in dict")
-    alert($("#LoginPassword").val());
+  var passwordEntered = $("#LoginPassword").val()
+  console.log("Hello");
+   debugger;   
+  if(userEntered in usersDict){
+   // alert("user in dict")
+   // alert($("#LoginPassword").val());
    
-    if( usersDict[userEntered][0].localeCompare($("#LoginPassword").val()) === 0){
-     alert("pass in dict");
-      // Do Show Page
+    if(usersDict[userEntered][0].localeCompare(passwordEntered) === 0){
+    // alert("pass in dict");
+    // Do Show Page
      showPage('Settings');
     }
     else {
@@ -132,4 +126,10 @@ function CheckIfUserExists(){
     alert("the user name doesn't exists");
   }
 
+}
+
+function resetLoginForm(){
+	document.getElementById("LoginUsername").value = '';
+  document.getElementById("LoginPassword").value = '';
+  showPage('Login');
 }
