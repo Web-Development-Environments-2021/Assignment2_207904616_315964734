@@ -154,18 +154,18 @@ function Draw() {
 				context.fill();
 			} else if (board[i][j] == 1) {
 				context.beginPath();
-				context.arc(center.x, center.y, 15/3, 0, 2 * Math.PI); // circle
+				context.arc(center.x, center.y, 15/3 *1.2 , 0, 2 * Math.PI); // circle
 				context.fillStyle = "black"; //color
 				context.fill();
 			
 			}else if (board[i][j] == 6) {
 				context.beginPath();
-				context.arc(center.x, center.y, 15/3, 0, 2 * Math.PI); // circle
+				context.arc(center.x, center.y, 15/3 * 0.8 , 0, 2 * Math.PI); // circle
 				context.fillStyle = "red"; //color
 				context.fill();
 			} else if (board[i][j] == 7) {
 				context.beginPath();
-				context.arc(center.x, center.y, 15/3, 0, 2 * Math.PI); // circle
+				context.arc(center.x, center.y, 15/3 * 0.6 , 0, 2 * Math.PI); // circle
 				context.fillStyle = "green"; //color
 				context.fill();
 			}
