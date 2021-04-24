@@ -1,4 +1,4 @@
-var usersDict = {}
+const usersDict = {}
 usersDict["k"] = ["k","Erez shalom","er@sh","2020-12-12"]
 
 
@@ -6,7 +6,7 @@ $(function(){
 
   // Method that checks if user exists in registration
   $.validator.addMethod('userExists',function(value,element){
-    return (value in usersDict);
+    return !(value in usersDict)
   })
 
   // Check that the password has at least 6 chars
@@ -63,7 +63,7 @@ $(function(){
         messages: {
         Username:{
             required:"Please enter user name",
-           userExists:"The user name exists. try another one"
+            userExists:"The user name exists. try another one"
         },
         Password: {
             required: "Please enter password",
@@ -99,24 +99,23 @@ function AddUser(){
     usersDict[userName]=[password, fullName, email, date];
     console.log(usersDict);
     debugger
+    showPage('Welcome')
   }
+  
 }  
   
 
 // is user exists then move him to the Settings page in Login
 function CheckIfUserExists(){  
+  
   var userEntered = $("#LoginUsername").val()
   var passwordEntered = $("#LoginPassword").val()
   console.log("Hello");
    debugger;   
-  if(userEntered in usersDict){
-   // alert("user in dict")
-   // alert($("#LoginPassword").val());
-   
+  if(userEntered in usersDict){    
     if(usersDict[userEntered][0].localeCompare(passwordEntered) === 0){
-    // alert("pass in dict");
-    // Do Show Page
-     showPage('Settings');
+     // Do Show settings
+     showPage('Settings');     
     }
     else {
       alert("WrongPassword");
