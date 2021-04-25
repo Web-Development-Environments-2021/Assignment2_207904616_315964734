@@ -16,6 +16,8 @@ let buzzer =new Audio("./music/wrong-answer.mp3");
 let trombone =new Audio("./music/sadtrombone.mp3");
 
 
+let pacX;
+let pacY;
 
 let keyPressed;
 let newKey;
@@ -65,12 +67,12 @@ function Start() {
 	window.clearInterval(ghostInterval);
 
 
-	// timeFromUser = 60;
-	// numOfBalls = 90;
-	// numOfGhost = 4;
-	// colorSmallBall = "blue"
-	// colorMediumBall = "black"
-	// colorLargeBall = "yellow"
+	timeFromUser = 60;
+	numOfBalls = 90;
+	numOfGhost = 4;
+	colorSmallBall = "blue"
+	colorMediumBall = "black"
+	colorLargeBall = "orange"
 
 
 	countGhost = 0;
@@ -236,6 +238,8 @@ function Start() {
 				} else if (randomNum < (1.0 * (pacman_remain + food_remain)) / cnt) {
 					shape.i = i;
 					shape.j = j;
+					pacX = i;
+					pacY = j;
 					pacman_remain--;
 					board[i][j] = 2;
 				} else {
@@ -312,10 +316,10 @@ function findRandomEmptyCell(board) {
 }
 
 function GetKeyPressed() {
-	if (keysDown[38]) {
+	if (keysDown[38]) { //up
 		return 1;
 	}
-	if (keysDown[40]) {
+	if (keysDown[40]) { //down
 		return 2;
 	}
 	if (keysDown[37]) {
@@ -508,6 +512,8 @@ function UpdatePosition() {
 	}
 
 	board[shape.i][shape.j] = 2;
+	pacX = shape.i
+	pacY = shape.j
 
 	
 
@@ -542,7 +548,7 @@ function UpdatePosition() {
 		trombone.play();
 		window.alert("Loser!"); 
 	}
-	else if (timer < 0) {
+	else if (timer == 0) {
 		pauseSong();
 		window.clearInterval(interval);
 		window.clearInterval(timerInterval);
@@ -551,7 +557,9 @@ function UpdatePosition() {
 		if (score > 100){ 
 		window.alert("Winner!!!"); }
 		else {
-			window.alert("You are better than " + score + " points!"); }
+			window.alert("You are better than " + score + " points!");
+			trombone.play();
+		}
 	}
 	else {
 		Draw();
@@ -608,6 +616,9 @@ function startMusic() {
 
 function togglePlay() {
 	song.volume = 0.1;
+	buzzer.volume = 0.5;
+	trombone.volume = 0.3;
+
 	return song.paused ? song.play() : song.pause();
   };
 
@@ -650,8 +661,6 @@ function repositionGhost(){
 	})
 	Draw();
 
-	console.log(ghostPosition)
-
 }
 
 
@@ -662,39 +671,94 @@ function UpdateGhost() {
 
 	for (i = 0; i < numOfGhost; i++){
 
-		let newPos = Math.floor(Math.random() * 4);
+		// let newPos = Math.floor(Math.random() * 4);
 
+		if (board[ghostPosition[i][0]][ghostPosition[i][1]] == 2) {
+			pacmanLives--;
+			buzzer.play();
+			repositionGhost();
+			break;
+		}
+		let GhostX = ghostPosition[i][0];
+		let GhostY = ghostPosition[i][1];
+		let newPos = manhattanDis(GhostX , GhostY)
 
 		board[ghostPosition[i][0]][ghostPosition[i][1]] = 0;
 
 		if (newPos == 0) {
-			if (ghostPosition[i][1] > 0 && board[ghostPosition[i][0]][ghostPosition[i][1] - 1] != 4) {
+			// if (ghostPosition[i][1] > 0 && board[ghostPosition[i][0]][ghostPosition[i][1] - 1] != 4) {
 				ghostPosition[i][1] = ghostPosition[i][1] - 1;
 			}
-		}
+		// }
 		if (newPos == 1) {
-			if (ghostPosition[i][1] < 29 && board[ghostPosition[i][0]][ghostPosition[i][1] + 1] != 4) {
+			// if (ghostPosition[i][1] < 29 && board[ghostPosition[i][0]][ghostPosition[i][1] + 1] != 4) {
 				ghostPosition[i][1] = ghostPosition[i][1] + 1;;
 			}
 			
-		}
+		// }
 		if (newPos == 2) {
-			if (ghostPosition[i][0] > 0 && board[ghostPosition[i][0] - 1][ghostPosition[i][1]] != 4) {
+			// if (ghostPosition[i][0] > 0 && board[ghostPosition[i][0] - 1][ghostPosition[i][1]] != 4) {
 				ghostPosition[i][0] = ghostPosition[i][0] - 1;
 			}
-		}
+		// }
 		if (newPos == 3) {
-			if (ghostPosition[i][0] < 29 && board[ghostPosition[i][0] + 1][ghostPosition[i][1]] != 4) {
+			// if (ghostPosition[i][0] < 29 && board[ghostPosition[i][0] + 1][ghostPosition[i][1]] != 4) {
 				ghostPosition[i][0] = ghostPosition[i][0] + 1;
 			}
-		}
+		// }
 		board[ghostPosition[i][0]][ghostPosition[i][1]] = 20;
 
 	}
 
-
-
-	 
 	Draw();
 	
+}
+
+function manhattanDis(ghostXpos, ghostYpos){
+		let manDis;
+		let bestmove = 150000;
+		let newPosition;
+
+		if (ghostYpos > 0 && board[ghostXpos][ghostYpos - 1] != 4) {
+			manDis = Math.abs(pacX - ghostXpos) + Math.abs(shape.j - ghostYpos - 1)
+			if (manDis < bestmove){
+				bestmove = manDis
+				newPosition = 0
+			}
+		}
+	
+		if (ghostYpos < 29 && board[ghostXpos][ghostYpos + 1] != 4) {
+			manDis = Math.abs(pacX - ghostXpos) + Math.abs(pacY - ghostYpos + 1)
+
+			if (manDis < bestmove){
+				bestmove = manDis
+				newPosition = 1
+			}
+		}
+		
+	
+		if (ghostXpos > 0 && board[ghostXpos - 1][ghostYpos] != 4) {
+			manDis = Math.abs(pacX - ghostXpos - 1) + Math.abs(pacY - ghostYpos)
+
+			if (manDis < bestmove){
+
+				bestmove = manDis
+				newPosition = 2
+			}
+		}
+	
+		if (ghostXpos < 29 && board[ghostXpos + 1][ghostYpos] != 4) {
+			manDis = Math.abs(pacX - ghostXpos + 1) + Math.abs(pacY - ghostYpos)
+
+			if (manDis < bestmove){
+				bestmove = manDis
+				newPosition = 3
+			}
+		}
+		if (bestmove == 150000){
+			newPosition = Math.floor(Math.random() * 4)
+			console.log("not good manhatten")
+		}
+		console.log(newPosition)  
+		return newPosition
 }
