@@ -12,6 +12,10 @@ let timerInterval;
 let timer;
 let timeFromUser;
 let song =new Audio("./music/Pac-man-theme-remix.mp3");
+let buzzer =new Audio("./music/wrong-answer.mp3");
+let trombone =new Audio("./music/sadtrombone.mp3");
+
+
 
 let keyPressed;
 let newKey;
@@ -496,6 +500,7 @@ function UpdatePosition() {
 
 	if (board[shape.i][shape.j] == 20) {
 		pacmanLives--;
+		buzzer.play();
 		repositionGhost();
 	}
 
@@ -531,6 +536,7 @@ function UpdatePosition() {
 		window.clearInterval(timerInterval);
 		window.clearInterval(ghostInterval);
 
+		trombone.play();
 		window.alert("Loser!"); 
 	}
 	else if (timer < 0) {
