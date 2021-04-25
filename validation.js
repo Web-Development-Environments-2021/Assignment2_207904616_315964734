@@ -1,7 +1,6 @@
 const usersDict = {}
 usersDict["k"] = ["k","Erez shalom","er@sh","2020-12-12"]
 
-
 $(function(){
 
   // Method that checks if user exists in registration
@@ -115,7 +114,7 @@ function CheckIfUserExists(){
   if(userEntered in usersDict){    
     if(usersDict[userEntered][0].localeCompare(passwordEntered) === 0){
      // Do Show settings
-     showPage('Settings');     
+     resetSettingsForm();   
     }
     else {
       alert("WrongPassword");

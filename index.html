@@ -29,7 +29,7 @@
 			
 			<li><a onclick= "resetLoginForm()">Login</a></li>
 			<li><a onclick= "resetRegisterForm()"> Register</a></li>
-			<li><a onclick= "showPage('Settings');"> Settings</a></li>
+			<li><a onclick= "resetSettingsForm()"> Settings</a></li>
 			<li><a id="buttomAbout" >About</a></li>
 			<li><img src="images/ghost.png" alt="pacManLogo" height="40px"  style="vertical-align: middle; cursor: pointer;" onclick= "showPage('Welcome');" ></li>					
 
@@ -170,14 +170,14 @@
 
 			<div class="settings-box" >
 			<h2>Game Settings</h2></br>
-			<form action="" id="set">
+			<form action="" id="settingsForm" name="settingsForm">
 				<div class="user-box">
 
-					<input id="up" name="up" type="text"  required="">
+					<input id="up" name="up" type="text"  required="" oninput="insertKeyToPlay('up');">
 					<label>Key Up</label>
 				</div>
 				<div class="user-box">
-					<input id="down" name="down" type="text"  required="">
+					<input id="down" name="down" type="text"  required="" oninput="insertChar()">
 					<label>Key Down</label>
 				</div>
 				<div class="user-box">
@@ -203,12 +203,12 @@
 				</div>	
 				
 				<div class="user-box">
-					<input id="numOfBalls" type="number" value = "70" min="60" name="numOfBalls" required="">
+					<input id="numOfBalls" name="numOfBalls" type="number" value = "70" min="50" max="90" name="numOfBalls" required="">
 					<label>Number of balls in the game (between 50 to 90)</label>
 				</div>		
 								
 				<div class="user-box">
-					<input id="timerVal" type="number" value = "60" min="60" name="" required="">
+					<input id="timerVal" name="timerVal" type="number" value = "60" min="60" name="" required="">
 					<label>Time (Min 60 Seconds)</label>
 				</div>
 				<div class="user-box">
@@ -221,20 +221,20 @@
 						</select>
 				</div>
 	
-				 <a href="#" onclick="showPage('gamePage');">
+				 <button id="startGame" onclick="goToGame();">
 					<span></span>
 					<span></span>
 					<span></span>
 					<span></span>
 					Start
-				 </a>
-				<a href="#" onclick="showPage('gamePage');">
+				 </button>
+				<button id="randomGame" onclick="generateRandomGame();">
 					<span></span>
 					<span></span>
 					<span></span>
 					<span></span>
 					Random
-				</a>
+				</button>
 				</form>
 			</div>
 		</center>
@@ -257,6 +257,7 @@
 	<script type="text/javascript" src="./app.js"></script>
 	<script src="./validation.js"></script>
 	<script src="./about.js"></script>
+	<script src="./settings.js"></script>
 
 
 	</body>
