@@ -16,11 +16,32 @@ let song =new Audio("./music/Pac-man-theme-remix.mp3");
 let keyPressed;
 let newKey;
 
+let colorSmallBall;
+let colorMediumBall;
+let colorLargeBall;
+
+
 let timerImage = document.createElement('img');
 timerImage.src = 'images/timer2.png';
 
 let heartImage = document.createElement('img');
 heartImage.src = 'images/heart.png';
+
+let ghost1 = document.createElement('img');
+ghost1.src = 'images/ghost.png';
+let ghost2 = document.createElement('img');
+ghost2.src = 'images/ghost1.png';
+let ghost3 = document.createElement('img');
+ghost3.src = 'images/ghost2.png';
+let ghost4 = document.createElement('img');
+ghost4.src = 'images/ghost3.png';
+
+let ghostList = [ghost1, ghost2, ghost3, ghost4];
+let numOfGhost;
+let countGhost = 0;
+let ghostPosition = [];
+let ghostInterval;
+
 
 
 $(document).ready(function() {
@@ -35,15 +56,25 @@ function Start() {
 	//####################################
 
 	window.clearInterval(timerInterval);
+	window.clearInterval(interval);
+	window.clearInterval(ghostInterval);
+
 
 	timeFromUser = 60;
+	var balls = 90;
+	numOfGhost = 4;
+	colorSmallBall = "blue"
+	colorMediumBall = "black"
+	colorLargeBall = "yellow"
+	countGhost = 0;
+	ghostPosition = [];
+
 	timer = timeFromUser;
 	
 	pacmanLives = 5;
-	var balls = 90;
 	keyPressed = 0;
 
-
+	let ghostRemain = numOfGhost;
 	let timerFoodRamain = 5;
 	let heartRemain = 4;
 
@@ -55,6 +86,8 @@ function Start() {
 	var food_remain = Math.round(0.6*balls);
 	var good_food_remain = Math.round(0.3*balls);
 	var super_food_remain = Math.round(0.1*balls);
+	while ( food_remain + good_food_remain + super_food_remain < balls){ food_remain++ }
+
 	var pacman_remain = 1;
 	// start_time = new Date();
 	for (var i = 0; i < 30; i++) {
@@ -232,6 +265,14 @@ function Start() {
 		board[emptyCell[0]][emptyCell[1]] = 13;
 		heartRemain--;
 	}
+
+	while (ghostRemain > 0) {
+		var emptyCell = findRandomEmptyCell(board);
+		board[emptyCell[0]][emptyCell[1]] = 20;
+		ghostPosition.push(emptyCell)
+		ghostRemain--;
+	}
+
 	keysDown = {};
 	addEventListener(
 		"keydown",
@@ -247,8 +288,9 @@ function Start() {
 		},
 		false
 	);
-	interval = setInterval(UpdatePosition, 100);
+	interval = setInterval(UpdatePosition, 185);
 	timerInterval = setInterval(oneSecond, 1000);
+	ghostInterval = setInterval(UpdateGhost, 500 )
 
 }
 
@@ -285,6 +327,7 @@ function Draw() {
 	lblScore.value = score;
 	lblTime.value = timer;
 	lbllives.value = pacmanLives;
+
 	for (var i = 0; i < 30; i++) {
 		for (var j = 0; j < 30; j++) {
 			var center = new Object();
@@ -336,18 +379,18 @@ function Draw() {
 			} else if (board[i][j] == 5) { // big balls
 				context.beginPath();
 				context.arc(center.x, center.y, 15/3 *1.2 , 0, 2 * Math.PI); // circle
-				context.fillStyle = "black"; //color
+				context.fillStyle = colorLargeBall; //color
 				context.fill();
 			
 			}else if (board[i][j] == 6) { // medium balls
 				context.beginPath();
 				context.arc(center.x, center.y, 15/3 * 0.8 , 0, 2 * Math.PI); // circle
-				context.fillStyle = "red"; //color
+				context.fillStyle = colorMediumBall; //color
 				context.fill();
 			} else if (board[i][j] == 7) { //small balls
 				context.beginPath();
 				context.arc(center.x, center.y, 15/3 * 0.6 , 0, 2 * Math.PI); // circle
-				context.fillStyle = "green"; //color
+				context.fillStyle = colorSmallBall; //color
 				context.fill();
 			}
 			 else if (board[i][j] == 4) { //wall
@@ -396,6 +439,14 @@ function Draw() {
 				// context.fillStyle = "#d8dbe4"; //color
 				context.fill();
 			}
+
+			else if (board[i][j] == 20){
+				context.beginPath();
+				context.drawImage(ghostList[countGhost], center.x - 10, center.y - 10, 20, 20); // circle
+				// context.fillStyle = "#d8dbe4"; //color
+				context.fill();
+				if (countGhost ==numOfGhost-1){countGhost = 0} else {countGhost++}
+			}
 		}
 	}
 }
@@ -404,9 +455,8 @@ function UpdatePosition() {
 
 	keyPressed = GetKeyPressed();
 	
-
 	board[shape.i][shape.j] = 0;
-
+	
 	if (keyPressed == 1) {
 		if (shape.j > 0 && board[shape.i][shape.j - 1] != 4) {
 			shape.j--;
@@ -443,7 +493,16 @@ function UpdatePosition() {
 	if (board[shape.i][shape.j] == 14) {
 		pacmanLives++;
 	}
+
+	if (board[shape.i][shape.j] == 20) {
+		pacmanLives--;
+		repositionGhost();
+	}
+
 	board[shape.i][shape.j] = 2;
+
+	
+
 	// var currentTime = new Date();
 	// time_elapsed = (currentTime - start_time) / 1000;
 	// time_elapsed = timer;
@@ -467,14 +526,19 @@ function UpdatePosition() {
 
 	if (pacmanLives == 0){
 		pauseSong();
+		Draw();
 		window.clearInterval(interval);
 		window.clearInterval(timerInterval);
+		window.clearInterval(ghostInterval);
+
 		window.alert("Loser!"); 
 	}
 	else if (timer < 0) {
 		pauseSong();
 		window.clearInterval(interval);
 		window.clearInterval(timerInterval);
+		window.clearInterval(ghostInterval);
+
 		if (score > 100){ 
 		window.alert("Winner!!!"); }
 		else {
@@ -567,3 +631,61 @@ function oneSecond(){
 	timer--;
 }
 
+function repositionGhost(){
+	ghostPosition.forEach(c => {
+		board[c[0]][c[1]] = 0
+		var emptyCell = findRandomEmptyCell(board);
+		board[emptyCell[0]][emptyCell[1]] = 20;
+		c[0] = emptyCell[0]
+		c[1] = emptyCell[1]
+	})
+	Draw();
+
+	console.log(ghostPosition)
+
+}
+
+
+
+function UpdateGhost() {
+
+	var i;
+
+	for (i = 0; i < numOfGhost; i++){
+
+		let newPos = Math.floor(Math.random() * 4);
+
+
+		board[ghostPosition[i][0]][ghostPosition[i][1]] = 0;
+
+		if (newPos == 0) {
+			if (ghostPosition[i][1] > 0 && board[ghostPosition[i][0]][ghostPosition[i][1] - 1] != 4) {
+				ghostPosition[i][1] = ghostPosition[i][1] - 1;
+			}
+		}
+		if (newPos == 1) {
+			if (ghostPosition[i][1] < 29 && board[ghostPosition[i][0]][ghostPosition[i][1] + 1] != 4) {
+				ghostPosition[i][1] = ghostPosition[i][1] + 1;;
+			}
+			
+		}
+		if (newPos == 2) {
+			if (ghostPosition[i][0] > 0 && board[ghostPosition[i][0] - 1][ghostPosition[i][1]] != 4) {
+				ghostPosition[i][0] = ghostPosition[i][0] - 1;
+			}
+		}
+		if (newPos == 3) {
+			if (ghostPosition[i][0] < 29 && board[ghostPosition[i][0] + 1][ghostPosition[i][1]] != 4) {
+				ghostPosition[i][0] = ghostPosition[i][0] + 1;
+			}
+		}
+		board[ghostPosition[i][0]][ghostPosition[i][1]] = 20;
+
+	}
+
+
+
+	 
+	Draw();
+	
+}
