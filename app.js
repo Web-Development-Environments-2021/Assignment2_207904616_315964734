@@ -23,6 +23,7 @@ let newKey;
 let colorSmallBall;
 let colorMediumBall;
 let colorLargeBall;
+let numOfBalls;
 
 
 let timerImage = document.createElement('img');
@@ -64,12 +65,14 @@ function Start() {
 	window.clearInterval(ghostInterval);
 
 
-	timeFromUser = 60;
-	var balls = 90;
-	numOfGhost = 4;
-	colorSmallBall = "blue"
-	colorMediumBall = "black"
-	colorLargeBall = "yellow"
+	// timeFromUser = 60;
+	// numOfBalls = 90;
+	// numOfGhost = 4;
+	// colorSmallBall = "blue"
+	// colorMediumBall = "black"
+	// colorLargeBall = "yellow"
+
+
 	countGhost = 0;
 	ghostPosition = [];
 
@@ -87,10 +90,10 @@ function Start() {
 	pac_color = "yellow";
 	var cnt = 900;
 	
-	var food_remain = Math.round(0.6*balls);
-	var good_food_remain = Math.round(0.3*balls);
-	var super_food_remain = Math.round(0.1*balls);
-	while ( food_remain + good_food_remain + super_food_remain < balls){ food_remain++ }
+	var food_remain = Math.round(0.6*numOfBalls);
+	var good_food_remain = Math.round(0.3*numOfBalls);
+	var super_food_remain = Math.round(0.1*numOfBalls);
+	while ( food_remain + good_food_remain + super_food_remain < numOfBalls){ food_remain++ }
 
 	var pacman_remain = 1;
 	// start_time = new Date();
