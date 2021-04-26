@@ -38,7 +38,6 @@ $(function(){
       }, 
     );
 
-
     var validator= $("#RegisterForm").validate({
         rules: {
           Username:{
@@ -51,12 +50,15 @@ $(function(){
             passwordDigitChar:true 
           },  
           FullName: {
-            required: true ,
+            required: true,
             textOnly: true 
           },      
           email: {
             required: true,
             email: true
+          },
+          date:{
+            required: true
           }
         },            
         messages: {
@@ -76,6 +78,9 @@ $(function(){
         email: {
             required: 'Please enter an email address.',
             email: 'Please enter a <b>valid</b> email address.'            
+        },
+        date:{
+          required:"Please choose date"
         },
         errorPlacement: function(label, element) {
             label.addClass('errorMsg');
@@ -97,10 +102,9 @@ function AddUser(){
     let date=$("#date").val();
     usersDict[userName]=[password, fullName, email, date];
     console.log(usersDict);
-    debugger
-    showPage('Welcome')
-  }
-  
+    showPage('Welcome');
+    alert("Registration executed successfully");
+  }  
 }  
   
 
@@ -110,7 +114,7 @@ function CheckIfUserExists(){
   var userEntered = $("#LoginUsername").val()
   var passwordEntered = $("#LoginPassword").val()
   console.log("Hello");
-   debugger;   
+
   if(userEntered in usersDict){    
     if(usersDict[userEntered][0].localeCompare(passwordEntered) === 0){
      // Do Show settings
@@ -127,22 +131,25 @@ function CheckIfUserExists(){
 }
 
 function resetLoginForm(){
-	document.getElementById("LoginUsername").value = '';
-  document.getElementById("LoginPassword").value = '';
-  showPage('Login');
+	// document.getElementById("LoginUsername").value = '';
+  // document.getElementById("LoginPassword").value = '';
+  // showPage('Login');
+  document.getElementById("LoginForm").reset();
+	var error = document.getElementsByClassName("error");
+	[...error].forEach(element => {
+		element.classList.remove("error");
+		element.innerHTML = "";
+	})
+	showPage('Login');
 }
 
-// function goToPage(){
-  
-//   $("#container").children.hide();
-//   $("#Login").show();
-
-// }
-
+// Dont add more URL after login form 
 document.getElementById("LoginForm").addEventListener("click", function(event){
   event.preventDefault()
 });
 
+
+// Dont add more URL after register form 
 document.getElementById("RegisterForm").addEventListener("click", function(event){
   event.preventDefault()
 });
