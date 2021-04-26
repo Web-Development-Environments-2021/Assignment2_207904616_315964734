@@ -114,7 +114,7 @@ function CheckIfUserExists(){
   if(userEntered in usersDict){    
     if(usersDict[userEntered][0].localeCompare(passwordEntered) === 0){
      // Do Show settings
-     resetSettingsForm();   
+     resetSettingsForm();
     }
     else {
       alert("WrongPassword");
@@ -131,3 +131,19 @@ function resetLoginForm(){
   document.getElementById("LoginPassword").value = '';
   showPage('Login');
 }
+
+// function goToPage(){
+  
+//   $("#container").children.hide();
+//   $("#Login").show();
+
+// }
+
+document.getElementById("LoginForm").addEventListener("click", function(event){
+  event.preventDefault()
+});
+
+document.getElementById("RegisterForm").addEventListener("click", function(event){
+  event.preventDefault()
+});
+

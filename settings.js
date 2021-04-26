@@ -90,7 +90,15 @@ function goToGame(){
 function generateRandomGame(){
     
     //Default Keys
-   
+   movementKeys["Up"] = "ArrowUp";
+   movementKeys["Down"] = "ArrowDown";
+   movementKeys["Left"] = "ArrowLeft";
+   movementKeys["Right"] = "ArrowRight";
+
+   document.getElementById("up").value = "ArrowUp";
+   document.getElementById("down").value = "ArrowDown";
+   document.getElementById("left").value = "ArrowLeft";
+   document.getElementById("right").value = "ArrowRight";
 
     // Random colors
     let bigBallsColorNum = Math.floor(Math.random()*16777215).toString(16);
@@ -111,12 +119,13 @@ function generateRandomGame(){
      document.getElementById("numOfBalls").value = numOfBalls;
     
     // Random time: Assumption - there is max value of 3 minuets
-    timeFromUser = Math.floor(Math.random() * 120) + 60;
+    timeFromUser = Math.floor(Math.random() * 60) + 60;
     document.getElementById("timerVal").value = timeFromUser;
     
     // Random num of monsters
     numOfGhost = Math.floor(Math.random() * 4) + 1;
     document.getElementById("Ghosts").value = numOfGhost;
+    debugger;
    
 }
 
@@ -131,3 +140,7 @@ function resetSettingsForm(){
 
 	showPage('Settings');
 }
+
+document.getElementById("settingsForm").addEventListener("click", function(event){
+    event.preventDefault()
+});
