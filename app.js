@@ -73,12 +73,12 @@ function Start() {
 	window.clearInterval(ghostInterval);
 
 
-	timeFromUser = 60;
-	numOfBalls = 90;
-	numOfGhost = 4;
-	colorSmallBall = "blue"
-	colorMediumBall = "black"
-	colorLargeBall = "orange"
+	// timeFromUser = 60;
+	// numOfBalls = 90;
+	// numOfGhost = 4;
+	// colorSmallBall = "blue"
+	// colorMediumBall = "black"
+	// colorLargeBall = "orange"
 
 
 	countGhost = 0;
@@ -90,8 +90,8 @@ function Start() {
 	keyPressed = 0;
 
 	let ghostRemain = numOfGhost;
-	let timerFoodRamain = 5;
-	let heartRemain = 4;
+	let timerFoodRamain = 7;
+	let heartRemain = 6;
 
 	board = new Array();
 	duplicateBoard = new Array();
@@ -343,16 +343,16 @@ function findRandomEmptyCell(board) {
 }
 
 function GetKeyPressed() {
-	if (keysDown[38]) { //up
+	if (keysDown[movementKeys["up"]]) { //up
 		return 1;
 	}
-	if (keysDown[40]) { //down
+	if (keysDown[movementKeys["down"]]) { //down
 		return 2;
 	}
-	if (keysDown[37]) {
+	if (keysDown[movementKeys["left"]]) { //left
 		return 3;
 	}
-	if (keysDown[39]) {
+	if (keysDown[movementKeys["right"]]) { //right
 		return 4;
 	}
 	else{
