@@ -102,21 +102,18 @@ function generateRandomGame(){
    document.getElementById("down").value = "ArrowDown";
    document.getElementById("left").value = "ArrowLeft";
    document.getElementById("right").value = "ArrowRight";
-
-    // Random colors
-    let bigBallsColorNum = Math.floor(Math.random()*16777215).toString(16);
-    colorLargeBall = "#" + bigBallsColorNum;
-    document.getElementById("fivePoints").value = colorLargeBall;    
-
-    let mediumBallsColorNum = Math.floor(Math.random()*16777215).toString(16);
-    colorMediumBall = "#" + mediumBallsColorNum;
-    document.getElementById("fifteenPoints").value = colorMediumBall;
-
-    let smallBallsColorNum = Math.floor(Math.random()*16777215).toString(16); 
-    colorSmallBall = "#" + smallBallsColorNum;
-    document.getElementById("twentyFivePoints").value = colorSmallBall;
     
+    // Random colors
+      
+    colorLargeBall = getRandomColor();
+    document.getElementById("fivePoints").value = colorLargeBall;  
 
+    colorMediumBall = getRandomColor();
+    document.getElementById("fifteenPoints").value = colorMediumBall;
+  
+    colorSmallBall = getRandomColor();
+    document.getElementById("twentyFivePoints").value = colorSmallBall;
+   
      // Random num of balls
      numOfBalls = Math.floor(Math.random() * 40) + 50;
      document.getElementById("numOfBalls").value = numOfBalls;
@@ -148,6 +145,22 @@ document.getElementById("settingsForm").addEventListener("click", function(event
     event.preventDefault()
 });
 
+
+function getRandomColor(){
+    let letters = "0123456789ABCDEF";
+    let color = "#";
+    for(let i=0;i <6 ;i++){
+        let indexOfLetters = Math.floor(Math.random() * 16);
+        let toAdd = letters[indexOfLetters];
+        color = color + toAdd;
+    }
+    return color;
+}
+
+
+/*
+Enter keys to inputs
+*/
 
 // Enter key for the up input
 document.getElementById("up").addEventListener("keydown",function(event){
@@ -216,7 +229,3 @@ document.getElementById("right").addEventListener("keydown",function(event){
         document.getElementById("right").value = letter;
     }
 })
-
-
-
-
