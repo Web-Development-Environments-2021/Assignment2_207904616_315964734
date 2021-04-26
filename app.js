@@ -73,7 +73,6 @@ function Start() {
 	window.clearInterval(interval);
 	window.clearInterval(ghostInterval);
 
-
 	// timeFromUser = 60;
 	// numOfBalls = 90;
 	// numOfGhost = 4;
@@ -506,9 +505,12 @@ function Draw() {
 function UpdatePosition() {
 
 	keyPressed = GetKeyPressed();
-	
+	try{
 	board[shape.i][shape.j] = 0;
-	
+	}
+	catch(e) {
+		return
+	}
 	if (keyPressed == 1) {
 		if (shape.j > 0 && board[shape.i][shape.j - 1] != 4) {
 			shape.j--;

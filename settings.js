@@ -2,6 +2,11 @@ var keys = ["Space","ArrowUp","ArrowDown","ArrowLeft","ArrowRight","Tab","Enter"
 var keysdown = {};
 var movementKeys = {"up":"","down":"","left":"","right":""}
 
+const small_ball_change = document.querySelector('.smallball')
+const medium_ball_change = document.querySelector('.mediumball')
+const big_ball_change = document.querySelector('.bigball')
+
+
 // $("#up").addEventListener("keydown",function(e){keysdown[e.keyCode] = true;}, false);
 // $("#up").addEventListener("keyup",function(e){keysdown[e.keyCode] = false},false);
 
@@ -57,7 +62,7 @@ $(function(){
 });
 
 // Validate the settings form after send
-function goToGame(){    
+function goToGame(){
     let upVal = $("#up").val();
     if($('#settingsForm').valid()){
         let downVal = $("#down").val();
@@ -70,7 +75,6 @@ function goToGame(){
             /**
              * Do the things to generate game
              */            
-            debugger;
             movementKeys["Up"] = upVal;
             movementKeys["Down"] = downVal;
             movementKeys["Left"] = leftVal;
@@ -142,7 +146,11 @@ function resetSettingsForm(){
 
 
 // Clear adding in URL after submitting form
-document.getElementById("settingsForm").addEventListener("click", function(event){
+document.getElementById("startGame").addEventListener("click", function(event){
+    event.preventDefault()
+});
+
+document.getElementById("randomGame").addEventListener("click", function(event){
     event.preventDefault()
 });
 
@@ -230,3 +238,21 @@ document.getElementById("right").addEventListener("keydown",function(event){
         document.getElementById("right").value = letter;
     }
 })
+
+
+small_ball_change.addEventListener('change' , (event) => {
+    console.log(event.target.value)
+    colorSmallBall = event.target.value
+});
+
+
+medium_ball_change.addEventListener('change' , (event) => {
+    console.log(event.target.value)
+    colorMediumBall = event.target.value
+});
+
+
+big_ball_change.addEventListener('change' , (event) => {
+    console.log(event.target.value)
+    colorLargeBall = event.target.value
+});

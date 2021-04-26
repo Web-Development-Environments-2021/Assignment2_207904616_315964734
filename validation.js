@@ -144,13 +144,13 @@ function resetLoginForm(){
 }
 
 // Dont add more URL after login form 
-document.getElementById("LoginForm").addEventListener("click", function(event){
+document.getElementById("SignInButton").addEventListener("click", function(event){
   event.preventDefault()
 });
 
 
 // Dont add more URL after register form 
-document.getElementById("RegisterForm").addEventListener("click", function(event){
+document.getElementById("SignUpFinal").addEventListener("click", function(event){
   event.preventDefault()
 });
 
