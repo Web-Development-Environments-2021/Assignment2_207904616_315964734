@@ -64,7 +64,7 @@ $(document).ready(function() {
 function Start() {
 
 	//###################################
-	// startMusic();
+	startMusic();
 	//####################################
 
 	window.clearInterval(timerInterval);
