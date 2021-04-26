@@ -51,6 +51,7 @@ ghost4.src = 'images/ghost3.png';
 
 let ghostList = [ghost1, ghost2, ghost3, ghost4];
 let numOfGhost;
+let ghostFromUser;
 let countGhost = 0;
 let ghostPosition;
 let ghostInterval;
@@ -79,6 +80,7 @@ function Start() {
 	// colorSmallBall = "blue"
 	// colorMediumBall = "black"
 	// colorLargeBall = "orange"
+	ghostFromUser = numOfGhost;
 
 
 	countGhost = 0;
@@ -89,7 +91,7 @@ function Start() {
 	pacmanLives = 5;
 	keyPressed = 0;
 
-	let ghostRemain = numOfGhost;
+	let ghostRemain = ghostFromUser;
 	let timerFoodRamain = 7;
 	let heartRemain = 6;
 
@@ -495,7 +497,7 @@ function Draw() {
 				context.drawImage(ghostList[countGhost], center.x - 10, center.y - 10, 20, 20); // circle
 				// context.fillStyle = "#d8dbe4"; //color
 				context.fill();
-				if (countGhost ==numOfGhost-1){countGhost = 0} else {countGhost++}
+				if (countGhost ==ghostFromUser-1){countGhost = 0} else {countGhost++}
 			}
 		}
 	}
@@ -552,7 +554,6 @@ function UpdatePosition() {
 	if (cell_value == 12) {
 		duplicateBoard[shape.i][shape.j] = 0;
 		timer = timer +5;
-		clock_ticking.volume = 0.3;
 		clock_ticking.pause();
 		clock_ticking.currentTime = 0;
 		clock_ticking.play();
@@ -561,7 +562,6 @@ function UpdatePosition() {
 	if (cell_value == 14) {
 		duplicateBoard[shape.i][shape.j] = 0;
 		pacmanLives++;
-		heart_gain.volume = 0.3;
 		heart_gain.pause();
 		heart_gain.currentTime = 0;
 		heart_gain.play();
@@ -678,16 +678,18 @@ function hideNonVisibleDivs() {
 function startMusic() {
 	song.currentTime=0
 	song.loop = true;
-	togglePlay();
-}
-
-function togglePlay() {
 	song.volume = 0.1;
 	clock_ticking.volume = 0.3;
 	buzzer.volume = 0.5;
 	trombone.volume = 0.3;
 	eat_sound.volume = 0.3;
+	heart_gain.volume = 0.3;
+	clock_ticking.volume = 0.3;
+	togglePlay();
+}
 
+function togglePlay() {
+	
 	return song.paused ? song.play() : song.pause();
   };
 
@@ -743,7 +745,7 @@ function repositionGhost(){
 function UpdateGhost() {
 
 	var i;
-	for (i = 0; i < numOfGhost; i++){
+	for (i = 0; i < ghostFromUser; i++){
 
 		// let newPos = Math.floor(Math.random() * 4);
 
