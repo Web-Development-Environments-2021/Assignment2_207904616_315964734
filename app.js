@@ -14,6 +14,11 @@ let timeFromUser;
 let song =new Audio("./music/Pac-man-theme-remix.mp3");
 let buzzer =new Audio("./music/wrong-answer.mp3");
 let trombone =new Audio("./music/sadtrombone.mp3");
+let clock_ticking =new Audio("./music/clock-ticking.mp3");
+let heart_gain =new Audio("./music/heart_gain.mp3");
+let tada =new Audio("./music/Tada.mp3");
+
+
 
 let pacX;
 let pacY;
@@ -46,7 +51,7 @@ ghost4.src = 'images/ghost3.png';
 let ghostList = [ghost1, ghost2, ghost3, ghost4];
 let numOfGhost;
 let countGhost = 0;
-let ghostPosition = [];
+let ghostPosition;
 let ghostInterval;
 
 
@@ -322,7 +327,7 @@ function Start() {
 	);
 	interval = setInterval(UpdatePosition, 185);
 	timerInterval = setInterval(oneSecond, 1000);
-	ghostInterval = setInterval(UpdateGhost, 500 )
+	ghostInterval = setInterval(UpdateGhost, 280)
 
 }
 
@@ -433,13 +438,13 @@ function Draw() {
 			}
 			else if (board[i][j] == 11) {  //timer
 				let rand = Math.random();
-				if (rand > 0.9997){
+				if (rand > 0.9994){
 					board[i][j] = 12
 				}
-				else if (rand > 0.9992 && timer < timeFromUser/2){
+				else if (rand > 0.999 && timer < timeFromUser/2){
 					board[i][j] = 12
 				}
-				else if (rand > 0.997 && timer < timeFromUser/4){
+				else if (rand > 0.995 && timer < timeFromUser/4){
 					board[i][j] = 12
 				}
 			}
@@ -533,11 +538,17 @@ function UpdatePosition() {
 	if (cell_value == 12) {
 		duplicateBoard[shape.i][shape.j] = 0;
 		timer = timer +5;
+		clock_ticking.volume = 0.3;
+		clock_ticking.pause();
+		clock_ticking.play();
 	}
 
 	if (cell_value == 14) {
 		duplicateBoard[shape.i][shape.j] = 0;
 		pacmanLives++;
+		heart_gain.volume = 0.3;
+		heart_gain.pause();
+		heart_gain.play();
 	}
 
 	if (cell_value == 20) {
@@ -583,14 +594,15 @@ function UpdatePosition() {
 		trombone.play();
 		window.alert("Loser!"); 
 	}
-	else if (timer < 0) {
+	else if (timer == 0) {
 		pauseSong();
 		window.clearInterval(interval);
 		window.clearInterval(timerInterval);
 		window.clearInterval(ghostInterval);
 
 		if (score > 100){ 
-		window.alert("Winner!!!"); }
+			tada.play();
+			window.alert("Winner!!!"); }
 		else {
 			window.alert("You are better than " + score + " points!");
 			trombone.play();
@@ -627,6 +639,8 @@ function showPage(divId) {
 	}
 	else{
 	window.clearInterval(timerInterval);
+	window.clearInterval(interval);
+	window.clearInterval(ghostInterval);
 	pauseSong();
 	}	
 }
@@ -651,6 +665,7 @@ function startMusic() {
 
 function togglePlay() {
 	song.volume = 0.1;
+	clock_ticking.volume = 0.3;
 	buzzer.volume = 0.5;
 	trombone.volume = 0.3;
 
@@ -703,7 +718,6 @@ function repositionGhost(){
 function UpdateGhost() {
 
 	var i;
-
 	for (i = 0; i < numOfGhost; i++){
 
 		// let newPos = Math.floor(Math.random() * 4);
@@ -716,30 +730,33 @@ function UpdateGhost() {
 		}
 		let GhostX = ghostPosition[i][0];
 		let GhostY = ghostPosition[i][1];
-		let newPos = manhattanDis(GhostX , GhostY)
+		
+		let newPos = manhattanDis(GhostX , GhostY);
+
 		if (duplicateBoard[ghostPosition[i][0]][ghostPosition[i][1]] != 20){
 		board[ghostPosition[i][0]][ghostPosition[i][1]] = duplicateBoard[ghostPosition[i][0]][ghostPosition[i][1]];
 		}
 		else{
 			board[ghostPosition[i][0]][ghostPosition[i][1]] = 0;
 		}
-		if (newPos == 0) {
+
+		if (newPos == "up") {
 			// if (ghostPosition[i][1] > 0 && board[ghostPosition[i][0]][ghostPosition[i][1] - 1] != 4) {
 				ghostPosition[i][1] = ghostPosition[i][1] - 1;
 			}
 		// }
-		if (newPos == 1) {
+		if (newPos == "down") {
 			// if (ghostPosition[i][1] < 29 && board[ghostPosition[i][0]][ghostPosition[i][1] + 1] != 4) {
 				ghostPosition[i][1] = ghostPosition[i][1] + 1;;
 			}
 			
 		// }
-		if (newPos == 2) {
+		if (newPos == "left") {
 			// if (ghostPosition[i][0] > 0 && board[ghostPosition[i][0] - 1][ghostPosition[i][1]] != 4) {
 				ghostPosition[i][0] = ghostPosition[i][0] - 1;
 			}
 		// }
-		if (newPos == 3) {
+		if (newPos == "right") {
 			// if (ghostPosition[i][0] < 29 && board[ghostPosition[i][0] + 1][ghostPosition[i][1]] != 4) {
 				ghostPosition[i][0] = ghostPosition[i][0] + 1;
 			}
@@ -753,50 +770,76 @@ function UpdateGhost() {
 }
 
 function manhattanDis(ghostXpos, ghostYpos){
-		let manDis;
-		let bestmove = 150000;
-		let newPosition;
+		let manDis = 0;
+		let bestmove = 1500;
+		let newPosition = "";
+		let randPos = Math.random();
+		let direction = []
+
+		
+		
 
 		if (ghostYpos > 0 && board[ghostXpos][ghostYpos - 1] != 4 && board[ghostXpos][ghostYpos - 1] != 20) {
-			manDis = Math.abs(pacX - ghostXpos) + Math.abs(shape.j - ghostYpos - 1)
+			manDis = Math.abs(pacX - ghostXpos) + Math.abs(pacY - ghostYpos + 1)
+			direction.push("up")
+
+			console.log("up dis: " + manDis)
+
 			if (manDis < bestmove){
 				bestmove = manDis
-				newPosition = 0
+				newPosition = "up"
 			}
 		}
 	
 		if (ghostYpos < 29 && board[ghostXpos][ghostYpos + 1] != 4 && board[ghostXpos][ghostYpos + 1] != 20) {
-			manDis = Math.abs(pacX - ghostXpos) + Math.abs(pacY - ghostYpos + 1)
+			manDis = Math.abs(pacX - ghostXpos) + Math.abs(pacY - ghostYpos - 1)
+			direction.push("down")
+
+			console.log("down dis: " + manDis)
+
 
 			if (manDis < bestmove){
 				bestmove = manDis
-				newPosition = 1
+				newPosition = "down"
+
 			}
 		}
 		
 	
 		if (ghostXpos > 0 && board[ghostXpos - 1][ghostYpos] != 4 && board[ghostXpos - 1][ghostYpos] != 20) {
-			manDis = Math.abs(pacX - ghostXpos - 1) + Math.abs(pacY - ghostYpos)
+			manDis = Math.abs(pacX - ghostXpos + 1) + Math.abs(pacY - ghostYpos)
+			direction.push("left")
+
+			console.log("left dis: " + manDis)
+
 
 			if (manDis < bestmove){
-
 				bestmove = manDis
-				newPosition = 2
+				newPosition = "left"
+
 			}
 		}
 	
 		if (ghostXpos < 29 && board[ghostXpos + 1][ghostYpos] != 4 && board[ghostXpos + 1][ghostYpos] != 20) {
-			manDis = Math.abs(pacX - ghostXpos + 1) + Math.abs(pacY - ghostYpos)
+			manDis = Math.abs(pacX - ghostXpos - 1) + Math.abs(pacY - ghostYpos)
+			direction.push("right")
+			
+			console.log("right dis: " + manDis)
+
 
 			if (manDis < bestmove){
 				bestmove = manDis
-				newPosition = 3
+				newPosition = "right"
+
 			}
 		}
-		if (bestmove == 150000){
-			newPosition = Math.floor(Math.random() * 4)
-			console.log("not good manhatten")
+
+		if (randPos > 0.7){
+			newPosition = direction[Math.floor(Math.random() * direction.length)]
 		}
-		console.log(newPosition)  
+
+		console.log("direction : " + direction)
+
+		console.log("manDis : " + bestmove + " newPos: " + newPosition)
 		return newPosition
 }
