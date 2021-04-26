@@ -159,11 +159,17 @@ ul {
   
 /* Modal Content */
 .modal-content {
-background-color: #fefefe;
+background-color: #667292;
 margin: auto;
 padding: 20px;
-border: 1px solid rgb(236, 236, 236);
-width: 80%;
+border: 3px solid #8d9db6;
+border-radius: 5px;
+width: 47%;
+color: white;
+font-size: 16px;
+font-weight: bold;
+letter-spacing: 1px;
+
 }
 
 /* The Close Button */

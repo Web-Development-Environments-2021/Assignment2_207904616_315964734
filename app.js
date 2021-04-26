@@ -648,7 +648,10 @@ function showPage(divId) {
 	}
 	hideNonVisibleDivs();
 	if (divId === "Settings"){
-		document.getElementById("Settings").style.marginLeft = "";
+		// document.getElementById("Settings").style.marginLeft = "";
+		colorSmallBall = "#3251a8";
+		colorMediumBall = "#ff0000";
+		colorLargeBall = "#32a852";
 	}
 	if (divId === "gamePage"){
 	showSettingsRight();
@@ -685,7 +688,7 @@ function startMusic() {
 	eat_sound.volume = 0.3;
 	heart_gain.volume = 0.3;
 	clock_ticking.volume = 0.3;
-	togglePlay();
+	song.play();
 }
 
 function togglePlay() {
