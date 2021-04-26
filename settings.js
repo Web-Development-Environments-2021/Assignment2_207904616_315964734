@@ -70,6 +70,7 @@ function goToGame(){
             /**
              * Do the things to generate game
              */            
+            debugger;
             movementKeys["Up"] = upVal;
             movementKeys["Down"] = downVal;
             movementKeys["Left"] = leftVal;
