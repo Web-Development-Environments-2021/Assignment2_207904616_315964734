@@ -1,6 +1,6 @@
 var keys = ["Space","ArrowUp","ArrowDown","ArrowLeft","ArrowRight","Tab","Enter"];
 var keysdown = {};
-var movementKeys = {"Up":"","Down":"","Left":"","Right":""}
+var movementKeys = {"up":"","down":"","left":"","right":""}
 
 // $("#up").addEventListener("keydown",function(e){keysdown[e.keyCode] = true;}, false);
 // $("#up").addEventListener("keyup",function(e){keysdown[e.keyCode] = false},false);
@@ -63,6 +63,7 @@ function goToGame(){
         let downVal = $("#down").val();
         let leftVal = $("#left").val();
         let rightVal = $("#right").val();        
+        
         // Check if some of the keys are the same
         if((upVal != downVal) && (upVal!= leftVal) && (upVal!=rightVal) && (downVal!=leftVal) && (downVal != rightVal) && (leftVal != rightVal)){
             
@@ -87,13 +88,15 @@ function goToGame(){
     }    
 }
 
+
+// Create random attributes for a new game
 function generateRandomGame(){
     
     //Default Keys
-   movementKeys["Up"] = "ArrowUp";
-   movementKeys["Down"] = "ArrowDown";
-   movementKeys["Left"] = "ArrowLeft";
-   movementKeys["Right"] = "ArrowRight";
+   movementKeys["up"] = 38;
+   movementKeys["down"] = 40;
+   movementKeys["left"] = 37 ;
+   movementKeys["right"] = 39;
 
    document.getElementById("up").value = "ArrowUp";
    document.getElementById("down").value = "ArrowDown";
@@ -124,9 +127,7 @@ function generateRandomGame(){
     
     // Random num of monsters
     numOfGhost = Math.floor(Math.random() * 4) + 1;
-    document.getElementById("Ghosts").value = numOfGhost;
-    debugger;
-   
+    document.getElementById("Ghosts").value = numOfGhost;  
 }
 
 // Clear the settings page every time the user opens it
@@ -141,6 +142,81 @@ function resetSettingsForm(){
 	showPage('Settings');
 }
 
+
+// Clear adding in URL after submitting form
 document.getElementById("settingsForm").addEventListener("click", function(event){
     event.preventDefault()
 });
+
+
+// Enter key for the up input
+document.getElementById("up").addEventListener("keydown",function(event){
+    //only one value in the input field
+    if(document.getElementById("up").value != ""){
+        document.getElementById("up").value = "";
+    }
+    
+    let letter = event.key;
+    let c = event.which;
+    movementKeys["up"] = c;
+    
+    // dont show chars twice
+    if (((c < 48) || (c > 90)) && (c < 186)) {
+        document.getElementById("up").value = letter;
+    }
+})
+
+//Enter key for the down input
+document.getElementById("down").addEventListener("keydown",function(event){
+    //only one value in the input field
+    if(document.getElementById("down").value != ""){
+        document.getElementById("down").value = "";
+    }
+    
+    let letter = event.key;
+    let c = event.which;
+    movementKeys["down"] = c;
+    
+    // dont show chars twice
+    if (((c < 48) || (c > 90)) && (c < 186)) {
+        document.getElementById("down").value = letter;
+    }
+})
+
+// Enter key for the left input
+document.getElementById("left").addEventListener("keydown",function(event){
+    //only one value in the input field
+    if(document.getElementById("left").value != ""){
+        document.getElementById("left").value = "";
+    }
+    
+    let letter = event.key;
+    let c = event.which;
+    movementKeys["left"] = c;
+    
+    // dont show chars twice
+    if (((c < 48) || (c > 90)) && (c < 186)) {
+        document.getElementById("left").value = letter;
+    }
+})
+
+// Enter keys for the right input
+document.getElementById("right").addEventListener("keydown",function(event){
+    //only one value in the input field
+    if(document.getElementById("right").value != ""){
+        document.getElementById("right").value = "";
+    }
+    
+    let letter = event.key;
+    let c = event.which;
+    movementKeys["right"] = c;
+    
+    // dont show chars twice
+    if (((c < 48) || (c > 90)) && (c < 186)) {
+        document.getElementById("right").value = letter;
+    }
+})
+
+
+
+
