@@ -24,13 +24,14 @@ if (event.target == modal) {
 }
 }
 
-var keys=[33,34,35,36,37,38,39,40];
+var default_keys=[33,34,35,36,37,38,39,40];
 
 document.addEventListener('keydown', function(e) {
      var key = e.which;
 
-      if(keys.includes(key)) {
+      if(default_keys.includes(key)) {
           e.preventDefault();
+          
           return false;
       }
       if (key == 27){

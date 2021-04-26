@@ -15,9 +15,9 @@ let song =new Audio("./music/Pac-man-theme-remix.mp3");
 let buzzer =new Audio("./music/wrong-answer.mp3");
 let trombone =new Audio("./music/sadtrombone.mp3");
 
-
 let pacX;
 let pacY;
+let duplicateBoard;
 
 let keyPressed;
 let newKey;
@@ -88,6 +88,7 @@ function Start() {
 	let heartRemain = 4;
 
 	board = new Array();
+	duplicateBoard = new Array();
 	score = 0;
 	pac_color = "yellow";
 	var cnt = 900;
@@ -101,6 +102,7 @@ function Start() {
 	// start_time = new Date();
 	for (var i = 0; i < 30; i++) {
 		board[i] = new Array();
+		duplicateBoard[i] = new Array();
 		//put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
 		for (var j = 0; j < 30; j++) {
 			if (
@@ -230,11 +232,14 @@ function Start() {
 				
 			) {
 				board[i][j] = 4;
+				duplicateBoard[i][j] = 4;
+
 			} else {
 				var randomNum = Math.random();
 				if (randomNum <= (1.0 * food_remain) / cnt) {
 					food_remain--;
 					board[i][j] = 5;
+					duplicateBoard[i][j] = 5;
 				} else if (randomNum < (1.0 * (pacman_remain + food_remain)) / cnt) {
 					shape.i = i;
 					shape.j = j;
@@ -242,8 +247,12 @@ function Start() {
 					pacY = j;
 					pacman_remain--;
 					board[i][j] = 2;
+					duplicateBoard[i][j] = 0;
+
 				} else {
 					board[i][j] = 0;
+					duplicateBoard[i][j] = 0;
+
 				}
 				cnt--;
 			}
@@ -252,34 +261,46 @@ function Start() {
 	while (food_remain > 0) {
 		var emptyCell = findRandomEmptyCell(board);
 		board[emptyCell[0]][emptyCell[1]] = 5;
+		duplicateBoard[emptyCell[0]][emptyCell[1]] = 5;
+
 		food_remain--;
 	}
 	while (good_food_remain > 0) {
 		var emptyCell = findRandomEmptyCell(board);
 		board[emptyCell[0]][emptyCell[1]] = 6;
+		duplicateBoard[emptyCell[0]][emptyCell[1]] = 6;
+
 		good_food_remain--;
 	}
 	while (super_food_remain > 0) {
 		var emptyCell = findRandomEmptyCell(board);
 		board[emptyCell[0]][emptyCell[1]] = 7;
+		duplicateBoard[emptyCell[0]][emptyCell[1]] = 7;
+
 		super_food_remain--;
 	}
 
 	while (timerFoodRamain > 0) {
 		var emptyCell = findRandomEmptyCell(board);
 		board[emptyCell[0]][emptyCell[1]] = 11;
+		duplicateBoard[emptyCell[0]][emptyCell[1]] = 11;
+
 		timerFoodRamain--;
 	}
 
 	while (heartRemain > 0) {
 		var emptyCell = findRandomEmptyCell(board);
 		board[emptyCell[0]][emptyCell[1]] = 13;
+		duplicateBoard[emptyCell[0]][emptyCell[1]] = 13;
+
 		heartRemain--;
 	}
 
 	while (ghostRemain > 0) {
 		var emptyCell = findRandomEmptyCell(board);
 		board[emptyCell[0]][emptyCell[1]] = 20;
+		duplicateBoard[emptyCell[0]][emptyCell[1]] = 20;
+
 		ghostPosition.push(emptyCell)
 		ghostRemain--;
 	}
@@ -424,6 +445,7 @@ function Draw() {
 			}
 
 			else if (board[i][j] == 12) {
+				duplicateBoard[i][j] == 12
 				context.beginPath();
 				context.drawImage(timerImage, center.x - 10, center.y - 10, 20, 20); 
 				context.fill();
@@ -445,6 +467,7 @@ function Draw() {
 			}
 
 			else if (board[i][j] == 14) {
+				duplicateBoard[i][j] == 14
 				context.beginPath();
 				context.drawImage(heartImage, center.x - 10, center.y - 10, 20, 20); // circle
 				// context.fillStyle = "#d8dbe4"; //color
@@ -488,24 +511,36 @@ function UpdatePosition() {
 			shape.i++;
 		}
 	}
-	if (board[shape.i][shape.j] == 5) {
+
+	var cell_value = board[shape.i][shape.j];
+
+	board[shape.i][shape.j] = 2;
+	pacX = shape.i
+	pacY = shape.j
+
+	if (cell_value == 5) {
+		duplicateBoard[shape.i][shape.j] = 0;
 		score = score +5;
 	}
-	if (board[shape.i][shape.j] == 6) {
+	if (cell_value == 6) {
+		duplicateBoard[shape.i][shape.j] = 0;
 		score = score +15;
 	}
-	if (board[shape.i][shape.j] == 7) {
+	if (cell_value == 7) {
+		duplicateBoard[shape.i][shape.j] = 0;
 		score = score +25;
 	}
-	if (board[shape.i][shape.j] == 12) {
+	if (cell_value == 12) {
+		duplicateBoard[shape.i][shape.j] = 0;
 		timer = timer +5;
 	}
 
-	if (board[shape.i][shape.j] == 14) {
+	if (cell_value == 14) {
+		duplicateBoard[shape.i][shape.j] = 0;
 		pacmanLives++;
 	}
 
-	if (board[shape.i][shape.j] == 20) {
+	if (cell_value == 20) {
 		pacmanLives--;
 		buzzer.play();
 		repositionGhost();
@@ -548,7 +583,7 @@ function UpdatePosition() {
 		trombone.play();
 		window.alert("Loser!"); 
 	}
-	else if (timer == 0) {
+	else if (timer < 0) {
 		pauseSong();
 		window.clearInterval(interval);
 		window.clearInterval(timerInterval);
@@ -682,9 +717,12 @@ function UpdateGhost() {
 		let GhostX = ghostPosition[i][0];
 		let GhostY = ghostPosition[i][1];
 		let newPos = manhattanDis(GhostX , GhostY)
-
-		board[ghostPosition[i][0]][ghostPosition[i][1]] = 0;
-
+		if (duplicateBoard[ghostPosition[i][0]][ghostPosition[i][1]] != 20){
+		board[ghostPosition[i][0]][ghostPosition[i][1]] = duplicateBoard[ghostPosition[i][0]][ghostPosition[i][1]];
+		}
+		else{
+			board[ghostPosition[i][0]][ghostPosition[i][1]] = 0;
+		}
 		if (newPos == 0) {
 			// if (ghostPosition[i][1] > 0 && board[ghostPosition[i][0]][ghostPosition[i][1] - 1] != 4) {
 				ghostPosition[i][1] = ghostPosition[i][1] - 1;
@@ -719,7 +757,7 @@ function manhattanDis(ghostXpos, ghostYpos){
 		let bestmove = 150000;
 		let newPosition;
 
-		if (ghostYpos > 0 && board[ghostXpos][ghostYpos - 1] != 4) {
+		if (ghostYpos > 0 && board[ghostXpos][ghostYpos - 1] != 4 && board[ghostXpos][ghostYpos - 1] != 20) {
 			manDis = Math.abs(pacX - ghostXpos) + Math.abs(shape.j - ghostYpos - 1)
 			if (manDis < bestmove){
 				bestmove = manDis
@@ -727,7 +765,7 @@ function manhattanDis(ghostXpos, ghostYpos){
 			}
 		}
 	
-		if (ghostYpos < 29 && board[ghostXpos][ghostYpos + 1] != 4) {
+		if (ghostYpos < 29 && board[ghostXpos][ghostYpos + 1] != 4 && board[ghostXpos][ghostYpos + 1] != 20) {
 			manDis = Math.abs(pacX - ghostXpos) + Math.abs(pacY - ghostYpos + 1)
 
 			if (manDis < bestmove){
@@ -737,7 +775,7 @@ function manhattanDis(ghostXpos, ghostYpos){
 		}
 		
 	
-		if (ghostXpos > 0 && board[ghostXpos - 1][ghostYpos] != 4) {
+		if (ghostXpos > 0 && board[ghostXpos - 1][ghostYpos] != 4 && board[ghostXpos - 1][ghostYpos] != 20) {
 			manDis = Math.abs(pacX - ghostXpos - 1) + Math.abs(pacY - ghostYpos)
 
 			if (manDis < bestmove){
@@ -747,7 +785,7 @@ function manhattanDis(ghostXpos, ghostYpos){
 			}
 		}
 	
-		if (ghostXpos < 29 && board[ghostXpos + 1][ghostYpos] != 4) {
+		if (ghostXpos < 29 && board[ghostXpos + 1][ghostYpos] != 4 && board[ghostXpos + 1][ghostYpos] != 20) {
 			manDis = Math.abs(pacX - ghostXpos + 1) + Math.abs(pacY - ghostYpos)
 
 			if (manDis < bestmove){
