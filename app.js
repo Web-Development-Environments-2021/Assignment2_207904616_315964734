@@ -614,6 +614,7 @@ function UpdatePosition() {
 	}
 	else if (timer == 0) {
 		pauseSong();
+		Draw();
 		window.clearInterval(interval);
 		window.clearInterval(timerInterval);
 		window.clearInterval(ghostInterval);
@@ -625,6 +626,9 @@ function UpdatePosition() {
 			window.alert("You are better than " + score + " points!");
 			trombone.play();
 		}
+		window.clearInterval(interval);
+		window.clearInterval(timerInterval);
+		window.clearInterval(ghostInterval);
 	}
 	else {
 		Draw();
@@ -654,8 +658,8 @@ function showPage(divId) {
 		colorLargeBall = "#32a852";
 	}
 	if (divId === "gamePage"){
-	showSettingsRight();
-	context = canvas.getContext("2d");
+	document.getElementById("Settings").style.display = "block";
+	context = canvas.getContext("2d");	
 	Start();
 	}
 	else{
@@ -718,13 +722,11 @@ function resetRegisterForm(){
 	showPage('Register');
 }
 
-function showSettingsRight(){
-	set = document.getElementById("Settings");
-	// set.style.marginLeft = "55%";
-	// set.style.width = "50%";
-	set.style.display = "block";
+// function showSettingsRight(){
+// 	set = document.getElementById("Settings");
+// 	set.style.display = "block";
 
-}
+// }
 
 
 function oneSecond(){
@@ -773,26 +775,18 @@ function UpdateGhost() {
 		}
 
 		if (newPos == "up") {
-			// if (ghostPosition[i][1] > 0 && board[ghostPosition[i][0]][ghostPosition[i][1] - 1] != 4) {
 				ghostPosition[i][1] = ghostPosition[i][1] - 1;
 			}
-		// }
 		if (newPos == "down") {
-			// if (ghostPosition[i][1] < 29 && board[ghostPosition[i][0]][ghostPosition[i][1] + 1] != 4) {
 				ghostPosition[i][1] = ghostPosition[i][1] + 1;;
 			}
 			
-		// }
 		if (newPos == "left") {
-			// if (ghostPosition[i][0] > 0 && board[ghostPosition[i][0] - 1][ghostPosition[i][1]] != 4) {
 				ghostPosition[i][0] = ghostPosition[i][0] - 1;
 			}
-		// }
 		if (newPos == "right") {
-			// if (ghostPosition[i][0] < 29 && board[ghostPosition[i][0] + 1][ghostPosition[i][1]] != 4) {
 				ghostPosition[i][0] = ghostPosition[i][0] + 1;
 			}
-		// }
 		board[ghostPosition[i][0]][ghostPosition[i][1]] = 20;
 
 	}
@@ -808,14 +802,9 @@ function manhattanDis(ghostXpos, ghostYpos){
 		let randPos = Math.random();
 		let direction = []
 
-		
-		
-
 		if (ghostYpos > 0 && board[ghostXpos][ghostYpos - 1] != 4 && board[ghostXpos][ghostYpos - 1] != 20) {
 			manDis = Math.abs(pacX - ghostXpos) + Math.abs(pacY - ghostYpos + 1)
 			direction.push("up")
-
-			console.log("up dis: " + manDis)
 
 			if (manDis < bestmove){
 				bestmove = manDis
@@ -826,9 +815,6 @@ function manhattanDis(ghostXpos, ghostYpos){
 		if (ghostYpos < 29 && board[ghostXpos][ghostYpos + 1] != 4 && board[ghostXpos][ghostYpos + 1] != 20) {
 			manDis = Math.abs(pacX - ghostXpos) + Math.abs(pacY - ghostYpos - 1)
 			direction.push("down")
-
-			console.log("down dis: " + manDis)
-
 
 			if (manDis < bestmove){
 				bestmove = manDis
@@ -842,9 +828,6 @@ function manhattanDis(ghostXpos, ghostYpos){
 			manDis = Math.abs(pacX - ghostXpos + 1) + Math.abs(pacY - ghostYpos)
 			direction.push("left")
 
-			console.log("left dis: " + manDis)
-
-
 			if (manDis < bestmove){
 				bestmove = manDis
 				newPosition = "left"
@@ -855,9 +838,6 @@ function manhattanDis(ghostXpos, ghostYpos){
 		if (ghostXpos < 29 && board[ghostXpos + 1][ghostYpos] != 4 && board[ghostXpos + 1][ghostYpos] != 20) {
 			manDis = Math.abs(pacX - ghostXpos - 1) + Math.abs(pacY - ghostYpos)
 			direction.push("right")
-			
-			console.log("right dis: " + manDis)
-
 
 			if (manDis < bestmove){
 				bestmove = manDis
@@ -870,8 +850,5 @@ function manhattanDis(ghostXpos, ghostYpos){
 			newPosition = direction[Math.floor(Math.random() * direction.length)]
 		}
 
-		// console.log("direction : " + direction)
-
-		// console.log("manDis : " + bestmove + " newPos: " + newPosition)
 		return newPosition
 }
