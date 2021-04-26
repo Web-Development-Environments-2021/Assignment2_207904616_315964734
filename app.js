@@ -16,6 +16,7 @@ let buzzer =new Audio("./music/wrong-answer.mp3");
 let trombone =new Audio("./music/sadtrombone.mp3");
 let clock_ticking =new Audio("./music/clock-ticking.mp3");
 let heart_gain =new Audio("./music/heart_gain.mp3");
+let eat_sound =new Audio("./music/arcade-eat.mp3");
 let tada =new Audio("./music/Tada.mp3");
 
 
@@ -325,9 +326,9 @@ function Start() {
 		},
 		false
 	);
-	interval = setInterval(UpdatePosition, 185);
+	interval = setInterval(UpdatePosition, 180);
 	timerInterval = setInterval(oneSecond, 1000);
-	ghostInterval = setInterval(UpdateGhost, 280)
+	ghostInterval = setInterval(UpdateGhost, 230)
 
 }
 
@@ -440,17 +441,22 @@ function Draw() {
 				let rand = Math.random();
 				if (rand > 0.9994){
 					board[i][j] = 12
+					duplicateBoard[i][j] == 12
+
 				}
 				else if (rand > 0.999 && timer < timeFromUser/2){
 					board[i][j] = 12
+					duplicateBoard[i][j] == 12
+
 				}
 				else if (rand > 0.995 && timer < timeFromUser/4){
 					board[i][j] = 12
+					duplicateBoard[i][j] == 12
+
 				}
 			}
 
 			else if (board[i][j] == 12) {
-				duplicateBoard[i][j] == 12
 				context.beginPath();
 				context.drawImage(timerImage, center.x - 10, center.y - 10, 20, 20); 
 				context.fill();
@@ -462,17 +468,22 @@ function Draw() {
 				}
 				else if (intrand > 0.9992 && pacmanLives < 4){
 					board[i][j] = 14
+					duplicateBoard[i][j] == 14
+
 				}
 				else if (intrand > 0.999 && pacmanLives < 3){
 					board[i][j] = 14
+					duplicateBoard[i][j] == 14
+
 				}
 				else if (intrand > 0.992 && pacmanLives < 2){
 					board[i][j] = 14
+					duplicateBoard[i][j] == 14
+
 				}
 			}
 
 			else if (board[i][j] == 14) {
-				duplicateBoard[i][j] == 14
 				context.beginPath();
 				context.drawImage(heartImage, center.x - 10, center.y - 10, 20, 20); // circle
 				// context.fillStyle = "#d8dbe4"; //color
@@ -526,20 +537,24 @@ function UpdatePosition() {
 	if (cell_value == 5) {
 		duplicateBoard[shape.i][shape.j] = 0;
 		score = score +5;
+		pacman_eat()
 	}
 	if (cell_value == 6) {
 		duplicateBoard[shape.i][shape.j] = 0;
 		score = score +15;
+		pacman_eat()
 	}
 	if (cell_value == 7) {
 		duplicateBoard[shape.i][shape.j] = 0;
 		score = score +25;
+		pacman_eat()
 	}
 	if (cell_value == 12) {
 		duplicateBoard[shape.i][shape.j] = 0;
 		timer = timer +5;
 		clock_ticking.volume = 0.3;
 		clock_ticking.pause();
+		clock_ticking.currentTime = 0;
 		clock_ticking.play();
 	}
 
@@ -548,11 +563,14 @@ function UpdatePosition() {
 		pacmanLives++;
 		heart_gain.volume = 0.3;
 		heart_gain.pause();
+		heart_gain.currentTime = 0;
 		heart_gain.play();
 	}
 
-	if (cell_value == 20) {
+	if (cell_value == 20 || board[shape.i][shape.j]  == 20 || board[shape.i +1 ][shape.j] == 20 || board[shape.i-1][shape.j == 20] || board[shape.i][shape.j-1] == 20 || board[shape.i][shape.j+1]  == 20) {
 		pacmanLives--;
+		buzzer.pause();
+		buzzer.currentTime=0;
 		buzzer.play();
 		repositionGhost();
 	}
@@ -668,12 +686,19 @@ function togglePlay() {
 	clock_ticking.volume = 0.3;
 	buzzer.volume = 0.5;
 	trombone.volume = 0.3;
+	eat_sound.volume = 0.3;
 
 	return song.paused ? song.play() : song.pause();
   };
 
 function pauseSong(){
 	song.pause();
+}
+
+function pacman_eat(){
+	eat_sound.pause();
+	eat_sound.currentTime = 0;
+	eat_sound.play();
 }
 
 
@@ -724,6 +749,8 @@ function UpdateGhost() {
 
 		if (board[ghostPosition[i][0]][ghostPosition[i][1]] == 2) {
 			pacmanLives--;
+			buzzer.pause();
+			buzzer.currentTime=0;
 			buzzer.play();
 			repositionGhost();
 			break;
@@ -834,12 +861,12 @@ function manhattanDis(ghostXpos, ghostYpos){
 			}
 		}
 
-		if (randPos > 0.7){
+		if (randPos > 0.75){
 			newPosition = direction[Math.floor(Math.random() * direction.length)]
 		}
 
-		console.log("direction : " + direction)
+		// console.log("direction : " + direction)
 
-		console.log("manDis : " + bestmove + " newPos: " + newPosition)
+		// console.log("manDis : " + bestmove + " newPos: " + newPosition)
 		return newPosition
 }
