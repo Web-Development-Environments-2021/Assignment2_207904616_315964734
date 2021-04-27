@@ -217,26 +217,29 @@
 					<label for="Ghosts">Number Of Ghosts</label>
 						<select id="Ghosts" name="Choose">
 							<option >1</option>
-							<option >2</option>
+							<option selected="selected">2</option>
 							<option >3</option>
 							<option >4</option>
 						</select>
 				</div><br>
 				<div class="user-box">
-					<label for="levelOfSpeed">Level of speed</label>
-						<select id="levelOfSpeed" name="Choose">
-							<option >1</option>
+					<label for="levelOfSpeed">Game Speed</label>
+						<select id="levelOfSpeed" name="Choose">							
+							<option value="1" >1 - Slowest</option>
 							<option >2</option>
 							<option >3</option>
 							<option >4</option>
-							<option >5</option>
+							<option selected="selected" value="5">5 - Average</option>
 							<option >6</option>
 							<option >7</option>
 							<option >8</option>
 							<option >9</option>
-							<option >10</option>
+							<option value="10">10 - Fastest</option>						
 						</select>
 				</div>
+				<!-- <div class="user-box">
+					<label for="levelOfSpeed">(1 is slowest and 10 is fastest)</label>
+				</div> -->
 	
 				 <button id="startGame" onclick="goToGame();">
 					<span></span>
