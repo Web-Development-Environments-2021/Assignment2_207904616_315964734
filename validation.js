@@ -119,6 +119,11 @@ function CheckIfUserExists(){
     if(usersDict[userEntered][0].localeCompare(passwordEntered) === 0){
      // Do Show settings
      resetSettingsForm();
+     document.getElementById("settingsMenu").style.display = "block"
+     document.getElementById("logoutMenu").style.display = "block"
+     document.getElementById("loginMenu").style.display = "none"
+     document.getElementById("registerMenu").style.display = "none"
+
     }
     else {
       alert("WrongPassword");
@@ -154,3 +159,11 @@ document.getElementById("SignUpFinal").addEventListener("click", function(event)
   event.preventDefault()
 });
 
+
+function logout(){
+  document.getElementById("settingsMenu").style.display = "none"
+  document.getElementById("logoutMenu").style.display = "none"
+  document.getElementById("loginMenu").style.display = "block"
+  document.getElementById("registerMenu").style.display = "block"
+  showPage("Welcome")
+}

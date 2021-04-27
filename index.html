@@ -27,12 +27,15 @@
 			<li><a onclick= "showPage('Welcome');">Welcome</a></li>
 			<!-- <li><a onclick= "showPage('gamePage');"> Show Game</a></li> -->
 			
-			<li><a onclick= "resetLoginForm()">Login</a></li>
-			<li><a onclick= "resetRegisterForm()"> Register</a></li>
-			<li><a onclick= "resetSettingsForm()"> Settings</a></li>
+			<li><a onclick= "resetLoginForm()" id= "loginMenu">Login</a></li>
+
+			<li><a onclick= "resetRegisterForm()" id= "registerMenu"> Register</a></li>
+			<li><a onclick= "resetSettingsForm()" style="display: none;" id= "settingsMenu"> Settings</a></li>
 			<!-- <li><a onclick= "showPage('gamePage');"> Game</a></li> -->
 
 			<li><a id="buttomAbout" >About</a></li>
+			<li><a onclick= "logout()" style="display: none;" id= "logoutMenu"> Log Out</a></li>
+
 			<li><img src="images/ghost.png" alt="pacManLogo" height="40px"  style="vertical-align: middle; cursor: pointer;" onclick= "modal.style.display = 'block';"  ></li>					
 
 			</ul>

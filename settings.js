@@ -1,7 +1,7 @@
 var keys = ["Space","ArrowUp","ArrowDown","ArrowLeft","ArrowRight","Tab","Enter"];
 var keysdown = {};
 var movementKeys = {"up":"","down":"","left":"","right":""}
-var speedDict = {"1":220,"2":210,"3":200,"4":190,"5":180,"6":170,"7":160,"8":150,"9":140,"10":130}
+var speedDict = {"1":260,"2":240,"3":220,"4":200,"5":180,"6":160,"7":140,"8":120,"9":100,"10":80}
 var speedSelected;
 
 const small_ball_change = document.querySelector('.smallball')

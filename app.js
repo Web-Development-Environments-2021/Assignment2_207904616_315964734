@@ -292,7 +292,6 @@ function Start() {
 	while (timerFoodRamain > 0) {
 		var emptyCell = findRandomEmptyCell(board);
 		board[emptyCell[0]][emptyCell[1]] = 11;
-		duplicateBoard[emptyCell[0]][emptyCell[1]] = 11;
 
 		timerFoodRamain--;
 	}
@@ -300,7 +299,6 @@ function Start() {
 	while (heartRemain > 0) {
 		var emptyCell = findRandomEmptyCell(board);
 		board[emptyCell[0]][emptyCell[1]] = 13;
-		duplicateBoard[emptyCell[0]][emptyCell[1]] = 13;
 
 		heartRemain--;
 	}
@@ -308,7 +306,7 @@ function Start() {
 	while (ghostRemain > 0) {
 		var emptyCell = findRandomEmptyCell(board);
 		board[emptyCell[0]][emptyCell[1]] = 20;
-		duplicateBoard[emptyCell[0]][emptyCell[1]] = 20;
+		// duplicateBoard[emptyCell[0]][emptyCell[1]] = 20;
 
 		ghostPosition.push(emptyCell)
 		ghostRemain--;
@@ -444,17 +442,17 @@ function Draw() {
 				let rand = Math.random();
 				if (rand > 0.9994){
 					board[i][j] = 12
-					duplicateBoard[i][j] == 12
+					// duplicateBoard[i][j] == 12
 
 				}
 				else if (rand > 0.999 && timer < timeFromUser/2){
 					board[i][j] = 12
-					duplicateBoard[i][j] == 12
+					// duplicateBoard[i][j] == 12
 
 				}
 				else if (rand > 0.995 && timer < timeFromUser/4){
 					board[i][j] = 12
-					duplicateBoard[i][j] == 12
+					// duplicateBoard[i][j] == 12
 
 				}
 			}
@@ -471,17 +469,17 @@ function Draw() {
 				}
 				else if (intrand > 0.9992 && pacmanLives < 4){
 					board[i][j] = 14
-					duplicateBoard[i][j] == 14
+					// duplicateBoard[i][j] == 14
 
 				}
 				else if (intrand > 0.999 && pacmanLives < 3){
 					board[i][j] = 14
-					duplicateBoard[i][j] == 14
+					// duplicateBoard[i][j] == 14
 
 				}
 				else if (intrand > 0.992 && pacmanLives < 2){
 					board[i][j] = 14
-					duplicateBoard[i][j] == 14
+					// duplicateBoard[i][j] == 14
 
 				}
 			}
@@ -570,15 +568,17 @@ function UpdatePosition() {
 		heart_gain.currentTime = 0;
 		heart_gain.play();
 	}
-
-	if (cell_value == 20 || board[shape.i][shape.j]  == 20 || board[shape.i +1 ][shape.j] == 20 || board[shape.i-1][shape.j == 20] || board[shape.i][shape.j-1] == 20 || board[shape.i][shape.j+1]  == 20) {
+	try {
+	if (cell_value == 20|| board[shape.i][shape.j]  == 20 || board[shape.i +1 ][shape.j] == 20 || board[shape.i-1][shape.j] == 20 || board[shape.i][shape.j-1] == 20 || board[shape.i][shape.j+1]  == 20) {
 		pacmanLives--;
 		buzzer.pause();
 		buzzer.currentTime=0;
 		buzzer.play();
 		repositionGhost();
 	}
-
+	}
+	catch(Error){
+	}
 	board[shape.i][shape.j] = 2;
 	pacX = shape.i
 	pacY = shape.j
@@ -758,7 +758,7 @@ function UpdateGhost() {
 
 		// let newPos = Math.floor(Math.random() * 4);
 
-		if (board[ghostPosition[i][0]][ghostPosition[i][1]] == 2) {
+		if (board[ghostPosition[i][0]][ghostPosition[i][1]] == 2 ) {
 			pacmanLives--;
 			buzzer.pause();
 			buzzer.currentTime=0;
