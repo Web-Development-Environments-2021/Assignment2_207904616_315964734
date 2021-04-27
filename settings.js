@@ -1,6 +1,8 @@
 var keys = ["Space","ArrowUp","ArrowDown","ArrowLeft","ArrowRight","Tab","Enter"];
 var keysdown = {};
 var movementKeys = {"up":"","down":"","left":"","right":""}
+var speedDict = {"1":220,"2":210,"3":200,"4":190,"5":180,"6":170,"7":160,"8":150,"9":140,"10":130}
+var speedSelected;
 
 const small_ball_change = document.querySelector('.smallball')
 const medium_ball_change = document.querySelector('.mediumball')
@@ -85,6 +87,7 @@ function goToGame(){
             mediumBallsColor = $("#fifteenPoints").val();
             smallBallsColor = $("#twentyFivePoints").val();
             numOfGhost = $("#Ghosts").val();
+            speedSelected = $("#levelOfSpeed").val();
             showPage('gamePage');
         }
         else{
@@ -130,6 +133,11 @@ function generateRandomGame(){
     // Random num of monsters
     numOfGhost = Math.floor(Math.random() * 4) + 1;
     document.getElementById("Ghosts").value = numOfGhost;  
+
+    speedSelected = Math.floor(Math.random() * 10) + 1;
+    document.getElementById("levelOfSpeed").value = speedSelected;
+
+
 }
 
 // Clear the settings page every time the user opens it

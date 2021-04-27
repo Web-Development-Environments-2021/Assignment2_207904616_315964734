@@ -80,6 +80,8 @@ function Start() {
 	// colorMediumBall = "black"
 	// colorLargeBall = "orange"
 	ghostFromUser = numOfGhost;
+	pacmanSpeedFromUser = speedDict[speedSelected];
+	ghostSpeedFromUser = pacmanSpeedFromUser + 50;
 
 
 	countGhost = 0;
@@ -327,9 +329,9 @@ function Start() {
 		},
 		false
 	);
-	interval = setInterval(UpdatePosition, 180);
+	interval = setInterval(UpdatePosition, pacmanSpeedFromUser);
 	timerInterval = setInterval(oneSecond, 1000);
-	ghostInterval = setInterval(UpdateGhost, 230)
+	ghostInterval = setInterval(UpdateGhost, ghostSpeedFromUser);
 
 }
 
