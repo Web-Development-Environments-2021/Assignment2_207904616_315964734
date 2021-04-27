@@ -148,7 +148,9 @@ function resetSettingsForm(){
 		element.classList.remove("error");
 		element.innerHTML = "";
 	})
-
+    colorSmallBall = "#3251a8";
+    colorMediumBall = "#ff0000";
+    colorLargeBall = "#32a852";
 	showPage('Settings');
 }
 

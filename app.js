@@ -675,12 +675,12 @@ function showPage(divId) {
 	visibleDivId = divId;
 	}
 	hideNonVisibleDivs();
-	if (divId === "Settings"){
+	// if (divId === "Settings"){
 		// document.getElementById("Settings").style.marginLeft = "";
-		colorSmallBall = "#3251a8";
-		colorMediumBall = "#ff0000";
-		colorLargeBall = "#32a852";
-	}
+		// colorSmallBall = "#3251a8";
+		// colorMediumBall = "#ff0000";
+		// colorLargeBall = "#32a852";
+	// }
 	if (divId === "gamePage"){
 	document.getElementById("Settings").style.display = "block";
 	context = canvas.getContext("2d");	
