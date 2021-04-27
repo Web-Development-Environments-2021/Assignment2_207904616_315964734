@@ -56,6 +56,9 @@ let countGhost = 0;
 let ghostPosition;
 let ghostInterval;
 
+let ballsUserCollected;
+let inputBallsForm;
+
 
 
 $(document).ready(function() {
@@ -94,18 +97,21 @@ function Start() {
 
 	let ghostRemain = ghostFromUser;
 	let timerFoodRamain = 7;
-	let heartRemain = 6;
 
+	let heartRemain = 6;
+	inputBallsForm = numOfBalls
+	
 	board = new Array();
 	duplicateBoard = new Array();
 	score = 0;
+	ballsUserCollected = 0;
 	pac_color = "yellow";
 	var cnt = 900;
 	
-	var food_remain = Math.round(0.6*numOfBalls);
-	var good_food_remain = Math.round(0.3*numOfBalls);
-	var super_food_remain = Math.round(0.1*numOfBalls);
-	while ( food_remain + good_food_remain + super_food_remain < numOfBalls){ food_remain++ }
+	var food_remain = Math.round(0.6*inputBallsForm);
+	var good_food_remain = Math.round(0.3*inputBallsForm);
+	var super_food_remain = Math.round(0.1*inputBallsForm);
+	// while ( food_remain + good_food_remain + super_food_remain < inputBallsForm){ food_remain++ }
 
 	var pacman_remain = 1;
 	// start_time = new Date();
@@ -541,16 +547,20 @@ function UpdatePosition() {
 	if (cell_value == 5) {
 		duplicateBoard[shape.i][shape.j] = 0;
 		score = score +5;
+		ballsUserCollected ++;
 		pacman_eat()
 	}
 	if (cell_value == 6) {
 		duplicateBoard[shape.i][shape.j] = 0;
 		score = score +15;
+		ballsUserCollected ++;
 		pacman_eat()
 	}
 	if (cell_value == 7) {
 		duplicateBoard[shape.i][shape.j] = 0;
 		score = score +25;
+		ballsUserCollected ++;
+
 		pacman_eat()
 	}
 	if (cell_value == 12) {
@@ -571,6 +581,7 @@ function UpdatePosition() {
 	try {
 	if (cell_value == 20|| board[shape.i][shape.j]  == 20 || board[shape.i +1 ][shape.j] == 20 || board[shape.i-1][shape.j] == 20 || board[shape.i][shape.j-1] == 20 || board[shape.i][shape.j+1]  == 20) {
 		pacmanLives--;
+		Draw();
 		buzzer.pause();
 		buzzer.currentTime=0;
 		buzzer.play();
@@ -607,8 +618,8 @@ function UpdatePosition() {
 
 
 	if (pacmanLives == 0){
-		pauseSong();
 		Draw();
+		pauseSong();
 		window.clearInterval(interval);
 		window.clearInterval(timerInterval);
 		window.clearInterval(ghostInterval);
@@ -617,8 +628,8 @@ function UpdatePosition() {
 		window.alert("Loser!"); 
 	}
 	else if (timer == 0) {
-		pauseSong();
 		Draw();
+		pauseSong();
 		window.clearInterval(interval);
 		window.clearInterval(timerInterval);
 		window.clearInterval(ghostInterval);
@@ -634,7 +645,16 @@ function UpdatePosition() {
 		window.clearInterval(timerInterval);
 		window.clearInterval(ghostInterval);
 	}
-	else {
+	else if (ballsUserCollected == inputBallsForm){
+		Draw();
+		tada.play();
+		window.clearInterval(interval);
+		window.clearInterval(timerInterval);
+		window.clearInterval(ghostInterval);
+		window.alert("Winner!!! You Ate Everything!"); 
+
+	}
+	else{
 		Draw();
 	}
 }
