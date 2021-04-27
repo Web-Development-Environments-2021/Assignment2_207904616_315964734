@@ -37,7 +37,7 @@ $(function(){
           return !containsNumber;
       }, 
     );
-
+    
     var validator= $("#RegisterForm").validate({
         rules: {
           Username:{
@@ -51,11 +51,11 @@ $(function(){
           },  
           FullName: {
             required: true,
-            textOnly: true 
+            textOnly: true            
           },      
           email: {
             required: true,
-            email: true
+            email: true            
           },
           date:{
             required: true
@@ -73,7 +73,7 @@ $(function(){
         },
         FullName: {
             required: "Please enter full name",
-            textOnly: "Full name shouldn't contain digits"   
+            textOnly: "Full name shouldn't contain digits"            
         },      
         email: {
             required: 'Please enter an email address.',

@@ -18,6 +18,7 @@ let clock_ticking =new Audio("./music/clock-ticking.mp3");
 let heart_gain =new Audio("./music/heart_gain.mp3");
 let eat_sound =new Audio("./music/arcade-eat.mp3");
 let tada =new Audio("./music/Tada.mp3");
+let lick =new Audio("./music/Lick.mp3");
 
 
 
@@ -40,6 +41,9 @@ timerImage.src = 'images/timer2.png';
 let heartImage = document.createElement('img');
 heartImage.src = 'images/heart.png';
 
+let fruit = document.createElement('img');
+fruit.src = 'images/fruit.png';
+
 let ghost1 = document.createElement('img');
 ghost1.src = 'images/ghost.png';
 let ghost2 = document.createElement('img');
@@ -50,15 +54,17 @@ let ghost4 = document.createElement('img');
 ghost4.src = 'images/ghost3.png';
 
 let ghostList = [ghost1, ghost2, ghost3, ghost4];
+let corners = [ [0,0],[0,29],[29,0],[29,29]  ]
 let numOfGhost;
 let ghostFromUser;
 let countGhost = 0;
 let ghostPosition;
 let ghostInterval;
+let fruitInterval;
 
 let ballsUserCollected;
 let inputBallsForm;
-
+let fruitPosition;
 
 
 $(document).ready(function() {
@@ -123,7 +129,6 @@ function Start() {
 			if (
 				(i == 3 && j == 3) ||
 				(i == 3 && j == 4) ||
-				(i == 3 && j == 5) ||
 				(i == 6 && j == 1) ||
 				(i == 6 && j == 2) ||
 				
@@ -149,7 +154,6 @@ function Start() {
 				(i == 19 && j == 15) ||
 				(i == 20 && j == 15) ||
 				(i == 21 && j == 15) ||
-				(i == 3 && j == 25) ||
 				(i == 4 && j == 25) ||
 				(i == 5 && j == 25) ||
 				(i == 11 && j == 11) ||
@@ -161,13 +165,10 @@ function Start() {
 				(i == 29 && j == 11) ||
 				(i == 28 && j == 11) ||
 
-				(i == 26 && j == 3) ||
 				(i == 26 && j == 4) ||
 				(i == 26 && j == 5) ||
-				(i == 27 && j == 4) ||
 				(i == 28 && j == 5) ||
 				(i == 25 && j == 7) ||
-				(i == 24 && j == 8) ||
 				(i == 23 && j == 10) ||
 				(i == 24 && j == 10) ||
 				(i == 26 && j == 11) ||
@@ -195,10 +196,8 @@ function Start() {
 				(i == 9 && j == 3) ||
 				
 				(i == 26 && j == 26) ||
-				(i == 26 && j == 28) ||
 				(i == 26 && j == 25) ||
 				(i == 27 && j == 22) ||
-				(i == 28 && j == 25) ||
 				(i == 25 && j == 25) ||
 				(i == 24 && j == 23) ||
 				(i == 23 && j == 26) ||
@@ -224,14 +223,13 @@ function Start() {
 				(i == 3 && j == 22) ||
 				(i == 0 && j == 25) ||
 				(i == 1 && j == 26) ||
-				(i == 3 && j == 27) ||
 				(i == 1 && j == 28) ||
 				(i == 23 && j == 0) ||
 				(i == 23 && j == 1) ||
 				(i == 23 && j == 2) ||
 				(i == 23 && j == 3) ||
 
-				(i == 15 && j == 15) ||
+				(i == 10 && j == 15) ||
 				(i == 16 && j == 15) ||
 				(i == 15 && j == 16) ||
 				(i == 17 && j == 15) ||
@@ -249,7 +247,13 @@ function Start() {
 				board[i][j] = 4;
 				duplicateBoard[i][j] = 4;
 
-			} else {
+			} else if (i == 15 && j == 15){
+				board[i][j] = 30;
+				duplicateBoard[i][j] = 0;
+				fruitPosition = [15,15]
+			}
+			
+			else{
 				var randomNum = Math.random();
 				if (randomNum <= (1.0 * food_remain) / cnt) {
 					food_remain--;
@@ -317,6 +321,7 @@ function Start() {
 		ghostPosition.push(emptyCell)
 		ghostRemain--;
 	}
+	repositionGhost();
 
 	keysDown = {};
 	addEventListener(
@@ -333,9 +338,11 @@ function Start() {
 		},
 		false
 	);
+	Draw();
 	interval = setInterval(UpdatePosition, pacmanSpeedFromUser);
 	timerInterval = setInterval(oneSecond, 1000);
 	ghostInterval = setInterval(UpdateGhost, ghostSpeedFromUser);
+	fruitInterval = setInterval(fruitRandomPosition, pacmanSpeedFromUser - 50)
 
 }
 
@@ -504,6 +511,12 @@ function Draw() {
 				context.fill();
 				if (countGhost ==ghostFromUser-1){countGhost = 0} else {countGhost++}
 			}
+			else if (board[i][j] == 30) {
+				context.beginPath();
+				context.drawImage(fruit, center.x - 10, center.y - 10, 20, 20); // circle
+				// context.fillStyle = "#d8dbe4"; //color
+				context.fill();
+			}
 		}
 	}
 }
@@ -578,9 +591,17 @@ function UpdatePosition() {
 		heart_gain.currentTime = 0;
 		heart_gain.play();
 	}
+	if (cell_value == 30) {
+		score = score + 50;
+		lick.pause();
+		lick.currentTime = 0;
+		lick.play();
+		window.clearInterval(fruitInterval);
+	}
 	try {
 	if (cell_value == 20|| board[shape.i][shape.j]  == 20 || board[shape.i +1 ][shape.j] == 20 || board[shape.i-1][shape.j] == 20 || board[shape.i][shape.j-1] == 20 || board[shape.i][shape.j+1]  == 20) {
 		pacmanLives--;
+		score = score -10
 		Draw();
 		buzzer.pause();
 		buzzer.currentTime=0;
@@ -623,6 +644,8 @@ function UpdatePosition() {
 		window.clearInterval(interval);
 		window.clearInterval(timerInterval);
 		window.clearInterval(ghostInterval);
+		window.clearInterval(fruitInterval);
+
 
 		trombone.play();
 		window.alert("Loser!"); 
@@ -633,6 +656,8 @@ function UpdatePosition() {
 		window.clearInterval(interval);
 		window.clearInterval(timerInterval);
 		window.clearInterval(ghostInterval);
+		window.clearInterval(fruitInterval);
+
 
 		if (score > 100){ 
 			tada.play();
@@ -644,6 +669,8 @@ function UpdatePosition() {
 		window.clearInterval(interval);
 		window.clearInterval(timerInterval);
 		window.clearInterval(ghostInterval);
+		window.clearInterval(fruitInterval);
+
 	}
 	else if (ballsUserCollected == inputBallsForm){
 		Draw();
@@ -651,6 +678,8 @@ function UpdatePosition() {
 		window.clearInterval(interval);
 		window.clearInterval(timerInterval);
 		window.clearInterval(ghostInterval);
+		window.clearInterval(fruitInterval);
+
 		window.alert("Winner!!! You Ate Everything!"); 
 
 	}
@@ -714,6 +743,7 @@ function startMusic() {
 	buzzer.volume = 0.5;
 	trombone.volume = 0.3;
 	eat_sound.volume = 0.3;
+	lick.volume = 0.3;
 	heart_gain.volume = 0.3;
 	clock_ticking.volume = 0.3;
 	song.play();
@@ -758,13 +788,31 @@ function oneSecond(){
 }
 
 function repositionGhost(){
-	ghostPosition.forEach(c => {
-		board[c[0]][c[1]] = 0
-		var emptyCell = findRandomEmptyCell(board);
-		board[emptyCell[0]][emptyCell[1]] = 20;
-		c[0] = emptyCell[0]
-		c[1] = emptyCell[1]
-	})
+	// ghostPosition.forEach(c => {
+	// 	board[c[0]][c[1]] = 0
+		// var emptyCell = findRandomEmptyCell(board);
+		// board[emptyCell[0]][emptyCell[1]] = 20;
+		// c[0] = emptyCell[0]
+		// c[1] = emptyCell[1]
+	let i = 0
+	for (i = 0; i < ghostFromUser; i++){
+		board[ghostPosition[i][0]][ghostPosition[i][1]] = 0
+		ghostPosition[i][0] = corners[i][0]
+		ghostPosition[i][1] = corners[i][1]
+
+		board[corners[i][0]][corners[i][1]] = 20
+	}
+	// })
+	var emptyCell = findRandomEmptyCell(board);
+	try{
+	board[shape.i][shape.j] = 0
+	}
+	catch (e){}
+	shape.i = emptyCell[0]
+	shape.j = emptyCell[1]
+	pacX = shape.i
+	pacY = shape.j
+	board[shape.i][shape.j] = 2
 	Draw();
 
 }
@@ -780,6 +828,7 @@ function UpdateGhost() {
 
 		if (board[ghostPosition[i][0]][ghostPosition[i][1]] == 2 ) {
 			pacmanLives--;
+			score = score -10
 			buzzer.pause();
 			buzzer.currentTime=0;
 			buzzer.play();
@@ -826,7 +875,7 @@ function manhattanDis(ghostXpos, ghostYpos){
 		let randPos = Math.random();
 		let direction = []
 
-		if (ghostYpos > 0 && board[ghostXpos][ghostYpos - 1] != 4 && board[ghostXpos][ghostYpos - 1] != 20) {
+		if (ghostYpos > 0 && board[ghostXpos][ghostYpos - 1] != 4 && board[ghostXpos][ghostYpos - 1] != 20 && board[ghostXpos][ghostYpos - 1] != 30) {
 			manDis = Math.abs(pacX - ghostXpos) + Math.abs(pacY - ghostYpos + 1)
 			direction.push("up")
 
@@ -836,7 +885,7 @@ function manhattanDis(ghostXpos, ghostYpos){
 			}
 		}
 	
-		if (ghostYpos < 29 && board[ghostXpos][ghostYpos + 1] != 4 && board[ghostXpos][ghostYpos + 1] != 20) {
+		if (ghostYpos < 29 && board[ghostXpos][ghostYpos + 1] != 4 && board[ghostXpos][ghostYpos - 1] != 20 && board[ghostXpos][ghostYpos - 1] != 30) {
 			manDis = Math.abs(pacX - ghostXpos) + Math.abs(pacY - ghostYpos - 1)
 			direction.push("down")
 
@@ -848,7 +897,7 @@ function manhattanDis(ghostXpos, ghostYpos){
 		}
 		
 	
-		if (ghostXpos > 0 && board[ghostXpos - 1][ghostYpos] != 4 && board[ghostXpos - 1][ghostYpos] != 20) {
+		if (ghostXpos > 0 && board[ghostXpos - 1][ghostYpos] != 4 && board[ghostXpos - 1][ghostYpos] != 20 && board[ghostXpos - 1][ghostYpos] != 30) {
 			manDis = Math.abs(pacX - ghostXpos + 1) + Math.abs(pacY - ghostYpos)
 			direction.push("left")
 
@@ -859,7 +908,7 @@ function manhattanDis(ghostXpos, ghostYpos){
 			}
 		}
 	
-		if (ghostXpos < 29 && board[ghostXpos + 1][ghostYpos] != 4 && board[ghostXpos + 1][ghostYpos] != 20) {
+		if (ghostXpos < 29 && board[ghostXpos + 1][ghostYpos] != 4 && board[ghostXpos + 1][ghostYpos] != 20 && board[ghostXpos + 1][ghostYpos] != 30) {
 			manDis = Math.abs(pacX - ghostXpos - 1) + Math.abs(pacY - ghostYpos)
 			direction.push("right")
 
@@ -875,4 +924,36 @@ function manhattanDis(ghostXpos, ghostYpos){
 		}
 
 		return newPosition
+}
+
+
+function fruitRandomPosition() {
+	let xFruit = fruitPosition[0];
+	let yFruit = fruitPosition[1];
+
+	let possible = [];
+	board[xFruit][yFruit] = duplicateBoard[xFruit][yFruit]
+
+	if (xFruit < 29 && board[xFruit + 1][yFruit] != 20 && board[xFruit + 1][yFruit] != 4 && board[xFruit + 1][yFruit] != 12  && board[xFruit + 1][yFruit] != 14 && board[xFruit + 1][yFruit] != 2){
+		possible.push([xFruit+1,yFruit])
+	}
+
+	if ( yFruit < 29 && board[xFruit][yFruit+1] != 20 && board[xFruit][yFruit+1] != 4 && board[xFruit][yFruit+1] != 12  && board[xFruit][yFruit+1] != 14 && board[xFruit][yFruit +1] != 2){
+		possible.push([xFruit, yFruit+1])
+	}
+
+	if (xFruit > 0 && board[xFruit-1][yFruit] != 20 && board[xFruit-1][yFruit] != 4 && board[xFruit-1][yFruit] != 12  && board[xFruit-1][yFruit] != 14 && board[xFruit - 1][yFruit] != 2){
+		possible.push([xFruit-1,yFruit])
+	}
+
+	if (yFruit > 0 && board[xFruit][yFruit-1] != 20 && board[xFruit][yFruit-1] != 4 && board[xFruit][yFruit-1] != 12  && board[xFruit][yFruit-1] != 14 && board[xFruit][yFruit - 1] != 2){
+		possible.push([xFruit,yFruit-1])
+	}
+	let newPosition = possible[Math.floor(Math.random() * possible.length)]
+	board[newPosition[0]][newPosition[1]] = 30
+	fruitPosition[0] = newPosition[0]
+	fruitPosition[1] = newPosition[1]
+	
+
+
 }
