@@ -46,13 +46,15 @@
 		<div id = "Welcome" class="content">
 			<img src="images/pac-man-logo-crop.png" class="centerPNG">
 			<center>
-
-			<button id="goToLogin" class="homeButtom" onclick= "resetLoginForm()" type="button">Sign In</button>
-			<button id="goToLogin" class="homeButtom" onclick="resetRegisterForm()" type="button">Sign Up</button>
+			<div id = "WelcomeButtomsAll" class="container">
+			<button class="homeButtom" onclick= "resetLoginForm()" type="button" id = "loginHome">Sign In</button>
+			<button class="homeButtom" onclick="resetRegisterForm()" type="button" id = "registerHome">Sign Up</button>
 			<!-- </br></br></br>
 			<button id="goToLogin" class="homeButtom" onclick="showPage('Settings');" type="button">Settings</button> -->
-
-			</center>		
+			<button class="homeButtom" onclick= "resetSettingsForm()" type="button" style="display: none;" id= "settingsHome">Settings</button>
+			<button class="homeButtom" onclick= "logout()" type="button" style="display: none;" id= "logioutHome">Log Out</button>
+			</div>	
+		</center>		
 		</div>
 		
 

@@ -113,7 +113,7 @@ function CheckIfUserExists(){
   
   var userEntered = $("#LoginUsername").val()
   var passwordEntered = $("#LoginPassword").val()
-  console.log("Hello");
+  // console.log("Hello");
 
   if(userEntered in usersDict){    
     if(usersDict[userEntered][0].localeCompare(passwordEntered) === 0){
@@ -123,6 +123,10 @@ function CheckIfUserExists(){
      document.getElementById("logoutMenu").style.display = "block"
      document.getElementById("loginMenu").style.display = "none"
      document.getElementById("registerMenu").style.display = "none"
+     document.getElementById("loginHome").style.display = "none"
+     document.getElementById("registerHome").style.display = "none"
+     document.getElementById("settingsHome").style.display = "block"
+     document.getElementById("logioutHome").style.display = "block"
 
     }
     else {
@@ -165,5 +169,10 @@ function logout(){
   document.getElementById("logoutMenu").style.display = "none"
   document.getElementById("loginMenu").style.display = "block"
   document.getElementById("registerMenu").style.display = "block"
+  document.getElementById("settingsHome").style.display = "none"
+  document.getElementById("logioutHome").style.display = "none"
+  document.getElementById("loginHome").style.display = "block"
+  document.getElementById("registerHome").style.display = "block"
+
   showPage("Welcome")
 }
