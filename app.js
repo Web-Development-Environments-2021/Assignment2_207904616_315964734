@@ -996,6 +996,10 @@ function playGame(){
 
 function toggleGame(){
 
+	if (timer == 0 || pacmanLives == 0){
+		return
+	}
+
 	if (!interval && !timerInterval && !ghostInterval && !fruitInterval){
 		playGame();
 	}
