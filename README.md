@@ -22,19 +22,20 @@ Omer Niv : 315964734
 * The user **can pause** the game and continue when he will decide to.
 * **The balls' colors** can be changed **dynamically** during game time.
 
+## Game
+
+![image](https://user-images.githubusercontent.com/73793617/116379374-9c9c3b80-a81b-11eb-9fe2-d37589597c91.png)
 
 ## Home Page
 
-![image](https://user-images.githubusercontent.com/73793617/116375271-cce1db00-a817-11eb-804a-a12490f648d2.png)
+![image](https://user-images.githubusercontent.com/73793617/116378338-b6894e80-a81a-11eb-96fe-b33e563f7716.png)
 
+![image](https://user-images.githubusercontent.com/73793617/116378240-9e193400-a81a-11eb-97f6-d4062c5adf26.png)
 
 ## Settings
 
-![image](https://user-images.githubusercontent.com/73793617/116375529-07e40e80-a818-11eb-99ef-e6437ab70b7b.png)
+![image](https://user-images.githubusercontent.com/73793617/116378141-82ae2900-a81a-11eb-98f5-6230a8226e06.png)
 
 
-## Game
-
-![image](https://user-images.githubusercontent.com/73793617/116375333-db2ff700-a817-11eb-8b21-0c456ed9e2d7.png)
 
 
