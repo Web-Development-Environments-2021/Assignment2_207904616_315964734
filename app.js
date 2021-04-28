@@ -65,7 +65,9 @@ let fruitInterval;
 let ballsUserCollected;
 let inputBallsForm;
 let fruitPosition;
-
+let pacmanSpeedFromUser;
+let ghostSpeedFromUser;
+let isSongPaused
 
 $(document).ready(function() {
 	// context = canvas.getContext("2d");
@@ -339,10 +341,11 @@ function Start() {
 		false
 	);
 	Draw();
-	interval = setInterval(UpdatePosition, pacmanSpeedFromUser);
-	timerInterval = setInterval(oneSecond, 1000);
-	ghostInterval = setInterval(UpdateGhost, ghostSpeedFromUser);
-	fruitInterval = setInterval(fruitRandomPosition, pacmanSpeedFromUser - 25)
+	playGame();
+	// interval = setInterval(UpdatePosition, pacmanSpeedFromUser);
+	// timerInterval = setInterval(oneSecond, 1000);
+	// ghostInterval = setInterval(UpdateGhost, ghostSpeedFromUser);
+	// fruitInterval = setInterval(fruitRandomPosition, pacmanSpeedFromUser - 25)
 
 }
 
@@ -641,10 +644,11 @@ function UpdatePosition() {
 	if (pacmanLives == 0){
 		Draw();
 		pauseSong();
-		window.clearInterval(interval);
-		window.clearInterval(timerInterval);
-		window.clearInterval(ghostInterval);
-		window.clearInterval(fruitInterval);
+		stopGame();
+		// window.clearInterval(interval);
+		// window.clearInterval(timerInterval);
+		// window.clearInterval(ghostInterval);
+		// window.clearInterval(fruitInterval);
 
 
 		trombone.play();
@@ -653,10 +657,12 @@ function UpdatePosition() {
 	else if (timer == 0) {
 		Draw();
 		pauseSong();
-		window.clearInterval(interval);
-		window.clearInterval(timerInterval);
-		window.clearInterval(ghostInterval);
-		window.clearInterval(fruitInterval);
+		stopGame();
+
+		// window.clearInterval(interval);
+		// window.clearInterval(timerInterval);
+		// window.clearInterval(ghostInterval);
+		// window.clearInterval(fruitInterval);
 
 
 		if (score > 100){ 
@@ -666,19 +672,21 @@ function UpdatePosition() {
 			window.alert("You are better than " + score + " points!");
 			trombone.play();
 		}
-		window.clearInterval(interval);
-		window.clearInterval(timerInterval);
-		window.clearInterval(ghostInterval);
-		window.clearInterval(fruitInterval);
+		stopGame();
+		// window.clearInterval(interval);
+		// window.clearInterval(timerInterval);
+		// window.clearInterval(ghostInterval);
+		// window.clearInterval(fruitInterval);
 
 	}
 	else if (ballsUserCollected == inputBallsForm){
 		Draw();
 		tada.play();
-		window.clearInterval(interval);
-		window.clearInterval(timerInterval);
-		window.clearInterval(ghostInterval);
-		window.clearInterval(fruitInterval);
+		// window.clearInterval(interval);
+		// window.clearInterval(timerInterval);
+		// window.clearInterval(ghostInterval);
+		// window.clearInterval(fruitInterval);
+		stopGame();
 
 		window.alert("Winner!!! You Ate Everything!"); 
 
@@ -716,9 +724,10 @@ function showPage(divId) {
 	Start();
 	}
 	else{
-	window.clearInterval(timerInterval);
-	window.clearInterval(interval);
-	window.clearInterval(ghostInterval);
+	// window.clearInterval(timerInterval);
+	// window.clearInterval(interval);
+	// window.clearInterval(ghostInterval);
+	stopGame();
 	pauseSong();
 	}	
 }
@@ -956,4 +965,42 @@ function fruitRandomPosition() {
 	
 
 
+}
+
+
+
+function stopGame(){
+	isSongPaused = song.paused
+	song.pause()
+	window.clearInterval(interval);
+	window.clearInterval(timerInterval);
+	window.clearInterval(ghostInterval);
+	window.clearInterval(fruitInterval);
+	interval = null
+	timerInterval = null
+	ghostInterval = null
+	fruitInterval = null
+}
+
+function playGame(){
+
+	interval = setInterval(UpdatePosition, pacmanSpeedFromUser);
+	timerInterval = setInterval(oneSecond, 1000);
+	ghostInterval = setInterval(UpdateGhost, ghostSpeedFromUser);
+	fruitInterval = setInterval(fruitRandomPosition, pacmanSpeedFromUser - 25)
+	if (!isSongPaused){
+		song.play()
+	}
+
+}
+
+function toggleGame(){
+
+	if (!interval && !timerInterval && !ghostInterval && !fruitInterval){
+		playGame();
+	}
+	else {
+		stopGame();
+	}
+	
 }
