@@ -1,5 +1,6 @@
 # Assignment2 - Pacman
-Omer Tagger: 207904616
+
+Omer Tagger : 207904616
 
 Omer Niv : 315964734
 
