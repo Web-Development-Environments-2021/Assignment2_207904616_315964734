@@ -10,7 +10,6 @@ Omer Niv : 315964734
 ## Functionality Added
 * Eating a **clock** will give the user 5 extra seconds.
   * The clocks will **appear more frequently** when the user has little time left (as function of time).
-
 * Eating a **heart** will give the user one more life.
   * The hearts will **appear more frequently** when the user has less lives left (as function of lives).
 * As the time goes, when the user has less time, **the pacman changes his color from yellow to orange and then red** before the time is up.
