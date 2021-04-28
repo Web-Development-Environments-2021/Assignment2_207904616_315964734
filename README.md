@@ -6,7 +6,7 @@ Omer Niv : 315964734
 #### URL: https://web-development-environments-2021.github.io/Assignment2_207904616_315964734/
 
 
-Functionality Added:
+## Functionality Added
 * Eating a **clock** will give the user 5 extra seconds.
 * Eating a **heart** will give the user one more life.
 * The clocks will **appear more frequently** when the user has little time left (as function of time).
