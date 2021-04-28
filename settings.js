@@ -148,6 +148,7 @@ function resetSettingsForm(){
 		element.classList.remove("error");
 		element.innerHTML = "";
 	})
+    document.getElementById("welcomeUserName").innerHTML = "Welcome, " + userEntered
     colorSmallBall = "#3251a8";
     colorMediumBall = "#ff0000";
     colorLargeBall = "#32a852";

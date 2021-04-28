@@ -1,5 +1,7 @@
 const usersDict = {}
 usersDict["k"] = ["k","Erez shalom","er@sh","2020-12-12"]
+let userEntered;
+
 
 $(function(){
 
@@ -111,7 +113,7 @@ function AddUser(){
 // is user exists then move him to the Settings page in Login
 function CheckIfUserExists(){  
   
-  var userEntered = $("#LoginUsername").val()
+  userEntered = $("#LoginUsername").val()
   var passwordEntered = $("#LoginPassword").val()
   // console.log("Hello");
 
@@ -173,6 +175,7 @@ function logout(){
   document.getElementById("logioutHome").style.display = "none"
   document.getElementById("loginHome").style.display = "block"
   document.getElementById("registerHome").style.display = "block"
+  document.getElementById("welcomeUserName").innerHTML = "Welcome"
 
   showPage("Welcome")
 }

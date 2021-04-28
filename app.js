@@ -342,7 +342,7 @@ function Start() {
 	interval = setInterval(UpdatePosition, pacmanSpeedFromUser);
 	timerInterval = setInterval(oneSecond, 1000);
 	ghostInterval = setInterval(UpdateGhost, ghostSpeedFromUser);
-	fruitInterval = setInterval(fruitRandomPosition, pacmanSpeedFromUser - 50)
+	fruitInterval = setInterval(fruitRandomPosition, pacmanSpeedFromUser - 25)
 
 }
 
