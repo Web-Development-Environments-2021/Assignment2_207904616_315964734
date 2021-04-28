@@ -5,7 +5,7 @@ Omer Tagger : 207904616
 Omer Niv : 315964734
 
 ### URL
-* https://web-development-environments-2021.github.io/Assignment2_207904616_315964734/
+https://web-development-environments-2021.github.io/Assignment2_207904616_315964734/
 
 
 ## Functionality Added
